@@ -139,9 +139,13 @@ in RTL, no motion that ignores `prefers-reduced-motion`.
 7. Published to the VS Code Marketplace (requires publisher + PAT) or, if credentials
    are unavailable, every publish step is documented and verified up to `vsce publish`.
 
-## 9. Marketplace facts gathered 2026-11-21
+## 9. Marketplace facts gathered 2026-11-22
 
-- Marketplace search for `codetrail` returned **0 extensions** (exact name appears free).
-- Publisher page `smh-dev-ai` returned **404** (publisher not registered yet).
-- Extension ID `smh-dev-ai.codetrail` therefore has no existing owner, but the publisher
-  account must be created by the author before publishing.
+- Display name `CodeTrail` is already taken by `CodeTrail.codetrail` (published 2023-11-17);
+  the Marketplace requires display names to be globally unique.
+- The shipped display name is therefore **CodeTrail Live**; the extension name is
+  `codetrail` (IDs are `publisher.name`, so this is not a conflict).
+- Exact ID `smh-dev-ai.codetrail` returns no results; the publisher page returns **404**
+  because `smh-dev-ai` has not been registered yet and must be created by the author.
+- Repository `SMH-AI-Dev/CodeTrail` is public and hosts release `v0.1.0` with the
+  `codetrail-0.1.0.vsix` asset. Marketplace publication remains pending.

@@ -1,16 +1,16 @@
 # CodeTrail — Marketplace Identity and Initial Release Prerequisites
 
-> **Status:** planning / prerequisites only. **Nothing was published.** No extension source code
-> was modified. All verification below was performed on **2026-11-21** (UTC) from this machine.
-> All account, publisher, and credential creation must be done by the author; an agent cannot
-> create accounts or accept legal terms.
+> **Status:** Marketplace publication pending. The GitHub repository and release `v0.1.0`
+> (with the VSIX asset) exist; the VS Code Marketplace entry is not published yet.
+> All account, publisher, and credential creation must be done by the author; an agent
+> cannot create accounts or accept legal terms.
 
 | Field | Value |
 | --- | --- |
 | Intended extension ID | `smh-dev-ai.codetrail` |
 | Publisher ID (intended) | `smh-dev-ai` |
 | Local project | `E:\SMH\LivePatch` (folder name predates the CodeTrail rename; git repo: `SMH-AI-Dev/CodeTrail`) |
-| Verification date | 2026-11-21 |
+| Verification date | 2026-11-22 |
 | Source of truth for product scope | `docs/PROJECT.md` |
 
 ## 0. Supervisor decisions (2026-11-21)
@@ -25,8 +25,8 @@ These override the generic recommendations below where they conflict with the pr
 2. **Categories:** ship `["Other", "Visualization"]`. Both are valid and honest; `Visualization`
    is the closest fit for a live visual timeline. `SCM Providers` is not used in v1.
 3. **Version:** first public release is `0.1.0`, not `0.0.1`.
-4. **Repository:** the intended URL is `https://github.com/SMH-AI-Dev/CodeTrail`. The author must
-   create the public repo before publishing so README-relative images and Resources links resolve.
+4. **Repository:** `https://github.com/SMH-AI-Dev/CodeTrail` is public and already hosts
+   release `v0.1.0`, so README-relative images and Resources links resolve.
 5. **Publishing:** accounts/PAT/legal acceptance remain with the author; the agent prepares and
    verifies everything up to `vsce publish`.
 
