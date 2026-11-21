@@ -1,4 +1,4 @@
-# CodeTrail — Diff Engine and VS Code Integration: Verified Design Reference
+# ActivityReel — Diff Engine and VS Code Integration: Verified Design Reference
 
 Status: research / design input to `docs/PROJECT.md` §7. Author: algorithms & API research pass.
 Research date: **2026-11-21** (all URLs accessed that day unless stated).
@@ -36,12 +36,12 @@ This file modifies no source; it is the only artifact of this task.
 | D14 | Tasks / debug | `tasks.onDidStartTask`, `onDidEndTask`, `onDidEndTaskProcess`, `debug.onDidStartDebugSession`, `onDidTerminateDebugSession` | Old, stable API, no gating needed [TYPES: present in 1.50]. | Terminal scraping. |
 | D15 | Terminal commands | `window.onDidChangeTerminalShellIntegration`, `onDidStartTerminalShellExecution`, `onDidEndTerminalShellExecution`; **feature-detect** (`typeof window.onDid… === 'function'`) | Became **stable in 1.93** [DOC]; absent in 1.92 typings [TYPES]. | `shellIntegration` proposal (unpublishable). |
 | D16 | Webview UI | `createWebviewPanel` + view contribution sharing one bundle; strict CSP with nonce + `cspSource`; `localResourceRoots=[media dir]`; `getState/setState`; **no** `retainContextWhenHidden` | Official security recipe [DOC]; `retainContextWhenHidden` has "high memory overhead" [DOC]. | `retainContextWhenHidden: true` (memory), remote CDN assets (violates F6). |
-| D17 | Open a historical file version / side-by-side | `vscode.diff` with our `TextDocumentContentProvider` scheme `codetrail-diff:` (content keyed by `?id=<eventId>`), plus `vscode.open` for plain navigation | Built-ins, no package needed [DOC commands]. | Custom editor (overkill for v1). |
+| D17 | Open a historical file version / side-by-side | `vscode.diff` with our `TextDocumentContentProvider` scheme `activityreel-diff:` (content keyed by `?id=<eventId>`), plus `vscode.open` for plain navigation | Built-ins, no package needed [DOC commands]. | Custom editor (overkill for v1). |
 | D18 | Explorer badge for touched files | `window.registerFileDecorationProvider` | Available since 1.52 [DOC/TYPES]; decoration strings are **path-keyed only** — store a map, not per-URI objects. | Tree view duplication. |
 | D19 | Export | `window.showSaveDialog` → `workspace.fs.writeFile` | Works over remote; returns `file:`/`vscode-remote:` URIs correctly [DOC remote]. | `fs.writeFile` from Node (breaks virtual/remote workspaces). |
 | D20 | Localization (en + fa) | `vscode.l10n.t()` + `l10n/` bundle dir declared in `package.json` `"l10n": "./l10n"` [DOC]; locale detection for RTL via `l10n.t` output / `env.language` | Stable since **1.73** [DOC]; bundles format is flat `key → value` with `{0}` placeholders [DOC l10n-dev]. | `vscode-nls` (legacy). |
 | D21 | Persistence | `context.storageUri` JSONL append-only log + `workspaceState` for small metadata (schemaVersion, filters, sessionId) | `storageUri` "safe" URI for workspace data [DOC]; caps memory, survives >Memento limits [INF]. | `workspaceState` for whole history (size/transaction risk). |
-| D22 | Entry point policy | `engines.vscode: "^1.93.0"` (+ `@types/vscode@1.93.x` dev dep); `activationEvents: ["onStartupFinished", "onWebviewPanel:codetrail.panel"]` | 1.93 = first stable with terminal API; keeps optional terminal card *stable*, not gated. | `^1.90.0` (current package.json) → must gate terminal API. |
+| D22 | Entry point policy | `engines.vscode: "^1.93.0"` (+ `@types/vscode@1.93.x` dev dep); `activationEvents: ["onStartupFinished", "onWebviewPanel:activityreel.panel"]` | 1.93 = first stable with terminal API; keeps optional terminal card *stable*, not gated. | `^1.90.0` (current package.json) → must gate terminal API. |
 
 ---
 

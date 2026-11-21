@@ -15,7 +15,7 @@ export interface HostApi {
 declare global {
   interface Window {
     acquireVsCodeApi?: () => HostApi;
-    __CODETRAIL__?: { surface?: string; locale?: string };
+    __ACTIVITYREEL__?: { surface?: string; locale?: string };
     __lpMockStarted?: boolean;
   }
 }

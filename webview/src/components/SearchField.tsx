@@ -4,7 +4,7 @@
  * immediately so typing never lags.
  */
 import { forwardRef, useEffect, useId, useRef, useState } from "react";
-import { useT } from "../app/CodeTrailContext";
+import { useT } from "../app/ActivityReelContext";
 import { CloseIcon, SearchIcon } from "./Icons";
 import common from "../styles/common.module.css";
 import styles from "./SearchField.module.css";

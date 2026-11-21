@@ -20,7 +20,7 @@ export default defineConfig({
       input: resolve(root, "webview/src/main.tsx"),
       output: {
         format: "iife",
-        name: "CodeTrailWebview",
+        name: "ActivityReelWebview",
         entryFileNames: "main.js",
         assetFileNames: (assetInfo) =>
           assetInfo.name?.endsWith(".css") ? "main.css" : "assets/[name][extname]",

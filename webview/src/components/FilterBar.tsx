@@ -5,7 +5,7 @@
  */
 import { useEffect, useId, useRef } from "react";
 import type { EventKind, TimeRange } from "../../../src/shared/model";
-import { useDispatch, useT } from "../app/CodeTrailContext";
+import { useDispatch, useT } from "../app/ActivityReelContext";
 import { kindsInGroup } from "../app/selectors";
 import { CloseIcon, FilterIcon } from "./Icons";
 import { SearchField } from "./SearchField";

@@ -1,4 +1,4 @@
-# CodeTrail — Project Specification
+# ActivityReel — Project Specification
 
 > This document replaces the former `ABOUT.md`. It preserves the original author/design
 > details and turns them into an actionable, testable specification for version 1.
@@ -7,13 +7,13 @@
 
 | Field | Value |
 | --- | --- |
-| Product name | **CodeTrail** |
-| Extension ID (intended) | `smh-dev-ai.codetrail` |
+| Product name | **ActivityReel** |
+| Extension ID (intended) | `smh-dev-ai.activityreel` |
 | Publisher (intended) | `smh-dev-ai` |
 | Language | TypeScript (extension host) + React/TypeScript (webview) |
 | Minimum VS Code | `^1.93.0` (verified: first stable with terminal shell-integration events) |
 | License | MIT |
-| Repository | `https://github.com/SMH-AI-Dev/CodeTrail` (to be created) |
+| Repository | `https://github.com/SMH-AI-Dev/ActivityReel` (to be created) |
 
 **Author:** Seyed Mehdi Hosseini (مهندس سید مهدی حسینی), Computer Software Engineer and AI specialist.
 - Email: dev.smh.ai@gmail.com
@@ -24,7 +24,7 @@
 
 ## 2. Mission
 
-CodeTrail gives VS Code users a beautiful, live, central view of what is happening in
+ActivityReel gives VS Code users a beautiful, live, central view of what is happening in
 their workspace: text edits with rich diffs, file creation/deletion/rename, saves,
 tasks, debug sessions, and terminal commands (when shell integration is available).
 It is an observer: it works with every editing tool and AI agent, requires no
@@ -94,7 +94,7 @@ in RTL, no motion that ignores `prefers-reduced-motion`.
 
 ## 5. Non-goals for v1
 
-- Editing code from the CodeTrail panel.
+- Editing code from the ActivityReel panel.
 - Accepting/rejecting or reverting external edits (observer only).
 - Cloud sync, accounts, or cross-window aggregation.
 - Reliable attribution of changes to a specific AI agent or human (not exposed as fact).
@@ -104,8 +104,8 @@ in RTL, no motion that ignores `prefers-reduced-motion`.
 
 | Surface | Purpose |
 | --- | --- |
-| Activity Bar sidebar (`codetrail.view`) | Always-available compact live feed |
-| Editor panel (`codetrail.open`) | Full timeline, stats hero, filters, export |
+| Activity Bar sidebar (`activityreel.view`) | Always-available compact live feed |
+| Editor panel (`activityreel.open`) | Full timeline, stats hero, filters, export |
 | Status bar item | Liveness indicator, pause/resume, quick open |
 | About page (webview) | Brand hero, version, author, privacy statement |
 | Notifications | One-time first-run tip; errors only when actionable |
@@ -133,7 +133,7 @@ in RTL, no motion that ignores `prefers-reduced-motion`.
 1. `npm run check` passes (typecheck + lint + unit tests).
 2. Integration tests pass in the Extension Development Host.
 3. Manual checklist passes in light, dark, and high-contrast themes, LTR and RTL.
-4. `codetrail-<version>.vsix` builds reproducibly and installs cleanly.
+4. `activityreel-<version>.vsix` builds reproducibly and installs cleanly.
 5. No telemetry/network code paths; CSP verified.
 6. README, CHANGELOG, LICENSE, icon, and Marketplace metadata complete.
 7. Published to the VS Code Marketplace (requires publisher + PAT) or, if credentials
@@ -141,11 +141,13 @@ in RTL, no motion that ignores `prefers-reduced-motion`.
 
 ## 9. Marketplace facts gathered 2026-11-22
 
-- Display name `CodeTrail` is already taken by `CodeTrail.codetrail` (published 2023-11-17);
-  the Marketplace requires display names to be globally unique.
-- The shipped display name is therefore **CodeTrail Live**; the extension name is
-  `codetrail` (IDs are `publisher.name`, so this is not a conflict).
-- Exact ID `smh-dev-ai.codetrail` returns no results; the publisher page returns **404**
+- The working name **CodeTrail** was dropped before the first publish: its exact display name
+  is owned by `CodeTrail.codetrail` (published 2023-11-17), and the Marketplace requires
+  display names to be globally unique.
+- The final name is **ActivityReel**. API search for `activityreel` (filterType 10 + VS Code
+  filter) returns **0 results**, so both the extension name and the display name are free
+  (verified 2026-11-22).
+- Exact ID `smh-dev-ai.activityreel` returns no results; the publisher page returns **404**
   because `smh-dev-ai` has not been registered yet and must be created by the author.
-- Repository `SMH-AI-Dev/CodeTrail` is public and hosts release `v0.1.0` with the
-  `codetrail-0.1.0.vsix` asset. Marketplace publication remains pending.
+- Repository `SMH-AI-Dev/ActivityReel` is public and hosts release `v0.1.0` with the
+  `activityreel-0.1.0.vsix` asset. Marketplace publication remains pending.

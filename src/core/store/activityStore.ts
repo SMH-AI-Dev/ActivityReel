@@ -155,7 +155,7 @@ export class ActivityStore implements EventSink {
       status: draft.status ?? "done",
     };
     const event = sanitizeEvent({ ...draft, ...base });
-    if (!event) throw new Error("CodeTrail: invalid activity event draft");
+    if (!event) throw new Error("ActivityReel: invalid activity event draft");
     this.nextSeq = Math.max(this.nextSeq, event.seq + 1);
     this.events.set(event.id, event);
     const totals = eventTotals(event);

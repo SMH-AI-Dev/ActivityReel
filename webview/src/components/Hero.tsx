@@ -2,7 +2,7 @@
  * Hero block. One per surface; the only place with gradient tint + orbit. The orbit stops under
  * reduced motion and high contrast. Degraded state ("Catching up…") dims the mark to 40 %.
  */
-import { useT } from "../app/CodeTrailContext";
+import { useT } from "../app/ActivityReelContext";
 import { OrbitMark } from "./OrbitMark";
 import type { OrbitSize } from "./OrbitMark";
 import styles from "./Hero.module.css";

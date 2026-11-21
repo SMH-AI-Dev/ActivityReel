@@ -1,8 +1,8 @@
-# AI Editor Review UX — Research for CodeTrail
+# AI Editor Review UX — Research for ActivityReel
 
 Research date: **2026-11-21**. How AI editors present and let users review live AI
 changes, the state model behind review, their trust mechanisms, and which patterns a
-read-only observer like CodeTrail can adopt.
+read-only observer like ActivityReel can adopt.
 
 | Tag | Meaning |
 | --- | --- |
@@ -154,7 +154,7 @@ checkpoint"), not the Git index; review = `diff(baseline_turn, disk_now)`. Exact
 storage (content store vs shadow worktree) is `[Unknown]` (`shadow` and `worktree`
 both appear, in mixed contexts).
 
-### 2.6 External-change / conflict handling (directly relevant to CodeTrail)
+### 2.6 External-change / conflict handling (directly relevant to ActivityReel)
 
 `[Observed]` Exact strings:
 - `"Your edits differ from the file on disk. Using the disk version discards your
@@ -235,10 +235,10 @@ and separate from Git `[Documented]`.
 
 **Q4 — Adoptable by a read-only observer?** See §5 and §6.
 
-## 5. Design takeaways for CodeTrail (adoptable)
+## 5. Design takeaways for ActivityReel (adoptable)
 
 1. **Group the timeline into bursts, never call them "turns".** Neutral heading such as
-   "Activity burst — 3 files, 12s". CodeTrail cannot know turn boundaries, so it must not
+   "Activity burst — 3 files, 12s". ActivityReel cannot know turn boundaries, so it must not
    borrow Qoder's "This turn" vocabulary.
 2. **Per-file summary rows inside each card.** `path`, language, `+N/−N`, status
    (created/modified/deleted/renamed), and an explicit `partial` chip when counts are
@@ -254,7 +254,7 @@ and separate from Git `[Documented]`.
    reveal with a gutter/bead decoration, highlight the range; handle deleted files
    (`"Deleted files cannot be opened"`).
 7. **Copy-only "Restore point" wording, no action.** Show a copyable/exportable
-   timestamp and state plainly that CodeTrail will not revert anything.
+   timestamp and state plainly that ActivityReel will not revert anything.
 8. **External-change messaging as a first-class event.** `FileSystemWatcher` events with
    no matching in-editor edit become "Changed outside VS Code", with the care of Qoder's
    disk-conflict copy. Label formatting-only and whitespace-only bursts separately.
@@ -265,22 +265,22 @@ and separate from Git `[Documented]`.
 11. **Export the review record** as schema-versioned JSON and Markdown (per-file
     headings, fenced diff, +/− summary) — diffs can expire, exports do not.
 12. **Failure states are UI states:** budget, truncation, binary and expired each get a
-    distinct, calm message with CodeTrail's own visible limits.
+    distinct, calm message with ActivityReel's own visible limits.
 
-## 6. Non-goals for CodeTrail (must stay out of scope)
+## 6. Non-goals for ActivityReel (must stay out of scope)
 
 1. **Accept / reject / keep-hunk.** Needs authority over the document buffer and a
-   proposed-vs-applied model. CodeTrail sees only emitted edits; "reject" would be a
+   proposed-vs-applied model. ActivityReel sees only emitted edits; "reject" would be a
    second write racing the agent — Qoder's `local-rewind-sync-failed` failure class.
 2. **Checkpoints / restore / rewind.** Needs snapshots the observer does not own.
    "Reverts are currently irreversible" (Windsurf) and "file checkpoint unavailable"
    (Qoder) are the failure modes a third party would inherit without the serializer.
-3. **Agent identity or model attribution.** Qoder itself declines this; CodeTrail must
+3. **Agent identity or model attribution.** Qoder itself declines this; ActivityReel must
    not infer it from edit patterns.
 4. **Turn/message identity** — depends on private chat protocols; use time + file
    overlap only.
 5. **Inline diff inside the editor buffer** — requires injecting into another tool's
-   diff surface; conflicts with the read-only posture. CodeTrail edits nothing.
+   diff surface; conflicts with the read-only posture. ActivityReel edits nothing.
 6. **Auto-apply of any kind** (format, fix, merge, discard-and-reload).
 7. **Remote/cloud review, share links, telemetry** — contradicts PROJECT.md F6.
 
@@ -289,14 +289,14 @@ and separate from Git `[Documented]`.
 1. **False attribution** — time grouping will occasionally split a turn. Mitigate with
    neutral labels and a "merged bursts" chip.
 2. **Vocabulary drift** — Qoder strings are internal and change between builds; ship
-   CodeTrail's own strings.
-3. **Diff cost** — Qoder budgets diffs (`diff_budget_exceeded`); CodeTrail needs an
+   ActivityReel's own strings.
+3. **Diff cost** — Qoder budgets diffs (`diff_budget_exceeded`); ActivityReel needs an
    explicit, visible budget, not silent truncation.
 4. **Listener fatigue / race** — high-churn agents emit hundreds of edits per second.
    Debounce/coalescing must be tuned against real agent traffic.
 5. **Over-trust in "Restore point"** — a timestamp may read as restorable. Label it
    "reference only" and point to the tool's own undo.
-6. **Duplicate surfaces** — if the host editor ships its own changes panel, CodeTrail is
+6. **Duplicate surfaces** — if the host editor ships its own changes panel, ActivityReel is
    redundant there. Edge: *cross-tool* and *local-only*; state that pitch plainly.
 7. **Clean-room discipline** — implementation must be independent. This report quotes
    short user-facing strings as evidence only; no vendor code, layout assets or

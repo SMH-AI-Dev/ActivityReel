@@ -28,7 +28,7 @@ let mockHostPromise: Promise<MockHostControl> | null = null;
  */
 export function currentSurfaceHint(): Surface {
   if (typeof window === "undefined") return "panel";
-  const hint = window.__CODETRAIL__?.surface;
+  const hint = window.__ACTIVITYREEL__?.surface;
   return hint === "sidebar" || hint === "about" ? hint : "panel";
 }
 
@@ -71,7 +71,7 @@ export function ensureMockHost(): Promise<void> {
       .then((mod) => mod.startMockHost())
       .catch((error: unknown) => {
         // A broken preview must never break the UI.
-        console.warn("CodeTrail preview mock failed", error);
+        console.warn("ActivityReel preview mock failed", error);
         return { stop: () => undefined };
       });
   }

@@ -1,4 +1,4 @@
-# VS Code Internals — REA / Static Research (for CodeTrail)
+# VS Code Internals — REA / Static Research (for ActivityReel)
 
 Research date: 2026-11-21. Tags: **[Observed]** = seen directly in shipped files; **[Inferred]** = reasoned from observed code/strings, not verified at runtime; **[Unknown]** = not established.
 
@@ -12,7 +12,7 @@ Locally installed VS Code Electron app, unpacked (no ASAR for the main app):
 - Built-in extensions: `extensions/*` (git, git-base, diff, markdown-language-features, copilot, ms-vscode.vscode-js-profile-table, simple-browser, ...)
 - Note: `out/vs/workbench/contrib/**` and `out/vs/editor/browser/**` exist only as **directories/CSS**, not JS sources — all contrib code is bundled into `workbench.desktop.main.js`. [Observed]
 
-Goal (per `docs/PROJECT.md`): evidence for CodeTrail's live timeline, diff rendering, SCM counts, and webview work.
+Goal (per `docs/PROJECT.md`): evidence for ActivityReel's live timeline, diff rendering, SCM counts, and webview work.
 
 ## 2. Method and evidence
 
@@ -81,7 +81,7 @@ npx -y rea-agents@6.5.0 analyze-javascript-application "C:/Users/SMH/AppData/Loc
 
 ### Q3. Per-file added/deleted counts (SCM / decorations / chat)
 
-Three distinct mechanisms exist; they disagree in meaning, which matters for CodeTrail.
+Three distinct mechanisms exist; they disagree in meaning, which matters for ActivityReel.
 
 1. **Quick-diff decorator model (gutter/overview markers)** @~4921204 [Observed]: `IQuickDiffModelService` (`DW`) with `createQuickDiffModelReference(uri, options)`; default options constant `ris = {algorithm:"advanced", maxComputationTimeMs:1000}`. Model:
    - `_diffDelayer = new Debouncer(200)`; every `textEditorModel.onDidChangeContent`, `onDidChangeEncoding`, `quickDiffService.onDidChangeQuickDiffProviders`, chat-editing-session state, and `scm.diffDecorationsIgnoreTrimWhitespace`/`diffEditor.ignoreTrimWhitespace` config change → `triggerDiff()` → debounced `diff()`.
@@ -107,7 +107,7 @@ Three distinct mechanisms exist; they disagree in meaning, which matters for Cod
   Variable naming note: theme **colors** use `"vscode-"+id.replace(".","-")` (first dot only) while theme **sizes** use `id.replace(/\./g,"-")` @~11953892 [Observed]. Theme color ids are `namespace.name` with a single dot, so the practical result is the hyphenated form (`--vscode-gitDecoration-addedResourceForeground`, `--vscode-editorGutter-addedBackground`). **Supervisor correction, verified by direct bundle inspection: use hyphenated names as in the UI spec; the earlier "dotted form" inference was wrong.**
   `--vscode-charts-green` appears; `--vscode-charts-red` **not found** in the bundle [Observed] — use `charts-red` only via theme, or fall back to a contrast-safe token. [Inferred]
 - **Retention / lifecycle** [Observed]: `retainContextWhenHidden` is honored by the overlay (`webviewView`, `customEditor`, `webviewPanel` options); when false the host clears the webview and resets app state on hide (`_releaseWebview` → `_resetApp`). A restart participant flags `webview.retainedContext` for unattended restarts. Chat overlay toggles retention dynamically (`_updateRetention`) based on whether tools are active. Messages posted before first load are queued (`_firstLoadPendingMessages`) and flushed. Find widget state is restored only when retention is on.
-- **RTL** [Observed]: the word "rtl" appears **8** times in the whole main bundle; the only real handling is the editor's inline-view line renderer: `r.textDirection===1 ? 'dir="rtl"' : (containsRTL ? 'dir="ltr"')`, plus padding-right tweak. There is **no** `dir` on webviews, no `vscode-rtl` class, no `isRTL` helper. ⇒ VS Code gives CodeTrail **no** RTL infrastructure beyond CSS `direction`/`unicode-bidi` the webview itself applies. [Observed]
+- **RTL** [Observed]: the word "rtl" appears **8** times in the whole main bundle; the only real handling is the editor's inline-view line renderer: `r.textDirection===1 ? 'dir="rtl"' : (containsRTL ? 'dir="ltr"')`, plus padding-right tweak. There is **no** `dir` on webviews, no `vscode-rtl` class, no `isRTL` helper. ⇒ VS Code gives ActivityReel **no** RTL infrastructure beyond CSS `direction`/`unicode-bidi` the webview itself applies. [Observed]
 - **A11y** [Observed]: 29 `aria-live` uses in core (e.g. status/message blocks with `aria-live="polite"`, `role="alert"` + `aria-atomic`); no timeline-specific live region found (`a11yStatus` absent).
 
 ### Q5. Built-in extension patterns worth copying conceptually
@@ -118,15 +118,15 @@ Three distinct mechanisms exist; they disagree in meaning, which matters for Cod
 - **copilot suggestion panel webview** [Observed]: 41 distinct `--vscode-*` vars, includes `--vscode-contrastBorder`/`contrastActiveBorder` for HC support.
 - **Debug auto-launch / merge-conflict**: `onStartupFinished` is the only activation mode used for "always-on small feature" (activation events are auto-generated from contributions elsewhere in 1.147; `*` still used by git/copilot). [Observed]
 
-## 4. Design takeaways for CodeTrail
+## 4. Design takeaways for ActivityReel
 
-- **Event model**: mirror the Timeline shape but keep CodeTrail's own store as source of truth. Recommended item contract: `{ id, source, timestamp, label, description?, resourceUri?, refs?, command?, contextValue?, iconPath? }`; provider contract `{ items, cursor? }` with `cursor` meaning "more exist". Sort **descending by timestamp**, tie-break by source for stable rendering.
-- **Coalescing**: two-tier debounce mirrors VS Code exactly — provider change signal debounced **500 ms**, quick-diff computation debounced **200 ms**, plus CodeTrail's own burst merge per document (PROJECT.md). Keep the "pending request supersedes, then refresh after pending resolves" rule to avoid result storms.
+- **Event model**: mirror the Timeline shape but keep ActivityReel's own store as source of truth. Recommended item contract: `{ id, source, timestamp, label, description?, resourceUri?, refs?, command?, contextValue?, iconPath? }`; provider contract `{ items, cursor? }` with `cursor` meaning "more exist". Sort **descending by timestamp**, tie-break by source for stable rendering.
+- **Coalescing**: two-tier debounce mirrors VS Code exactly — provider change signal debounced **500 ms**, quick-diff computation debounced **200 ms**, plus ActivityReel's own burst merge per document (PROJECT.md). Keep the "pending request supersedes, then refresh after pending resolves" rule to avoid result storms.
 - **Diff pipeline**: line diff first (Myers with prefix/suffix trim; the 1700-line DP threshold is a reasonable heuristic to copy at the *policy* level), `ignoreTrimWhitespace` and `maxComputationTimeMs` as first-class options with defaults `1000` (inline quick diff) / `3000–5000` (panel); always stamp a model `versionId` and drop stale results; word-level via `innerChanges` + `findWordContaining`-style refinement, sub-word optional; soft timeout returns partial results flagged as such (VS Code's `isValid`-style verification/fallback idea).
 - **Counts**: compute `+N/−N` as `Σ(modified.endLine − modified.startLine)` over final change ranges of `original → current` snapshot, `lineChangeCount = Σ max(added, removed)`. Do **not** accumulate per-keystroke deltas (drift). Record counts fail/partial when the diff hit its time or size limit.
 - **Webview protocol**: typed `{ type: 'init' | 'snapshot' | 'append' | 'patch' | 'settings' }` host→webview and `{ type: 'ready' | 'requestMore' | 'openFile' | 'filterChanged' | 'setState' }` webview→host; send an initial `snapshot` then incremental `append`/`patch` only; host keeps last-sent sequence number; webview state via `getState/setState` for filter/search/scroll anchor only (not the event log). Prefer `retainContextWhenHidden:false` + state restore (VS Code's own default) and measure; large panels in VS Code opt into retention, but that costs memory.
 - **Theming**: consume only `--vscode-*` variables, no hex literals; include `--vscode-contrastBorder` / `--vscode-contrastActiveBorder` borders under `body.vscode-high-contrast*`; use `--vscode-font-*` and `--vscode-editor-font-*` for code; add / removed should use `--vscode-diffEditor-insertedLineBackground` / `--vscode-gitDecoration-addedResourceForeground` (hyphenated; verified) with fallbacks. Honor both `prefers-reduced-motion` and the `vscode-reduce-motion` body class (VS Code adds it; our CSS must honor it).
-- **RTL**: must be implemented by CodeTrail entirely — `dir` on the webview root from locale/config, logical CSS properties (`margin-inline`, `inset-inline`, `padding-inline`), `unicode-bidi: plaintext` for file paths and code lines, mirrored chevrons for collapse, and numeric chips pinned with `direction:ltr` inside RTL text.
+- **RTL**: must be implemented by ActivityReel entirely — `dir` on the webview root from locale/config, logical CSS properties (`margin-inline`, `inset-inline`, `padding-inline`), `unicode-bidi: plaintext` for file paths and code lines, mirrored chevrons for collapse, and numeric chips pinned with `direction:ltr` inside RTL text.
 - **Performance limits**: page size 50 default; virtualize; per-provider `limit+1` cursor; cap pending requests to 1 per source; per-item relative-time label computed and hidden when duplicate (cheap, avoids a separate grouping pass); diff chunk/first-view state as in markdown editor (`localResourceRoots`).
 
 ## 5. Risks and open questions
@@ -136,5 +136,5 @@ Three distinct mechanisms exist; they disagree in meaning, which matters for Cod
 - **Exact default of `diffEditor.maxComputationTime`** (5 s per settings copy) vs `quickDiff` `maxComputationTimeMs` (1000) vs chat (3000) — verify in Settings UI before quoting [Unknown].
 - **`--vscode-*` var naming with multiple dots**: implementation replaces the first `.` only; screenshots/DevTools confirmation needed before relying on dotted names [Inferred].
 - **Generic webview-view CSP**: not found as plain strings in the main bundle [Unknown]; markdown preview CSP is the reliable first-party template.
-- **Runtime behavior** (debounce timings, retention memory cost, diff worker threading) not exercised — static only; CodeTrail must benchmark its own budgets (PROJECT.md §7).
+- **Runtime behavior** (debounce timings, retention memory cost, diff worker threading) not exercised — static only; ActivityReel must benchmark its own budgets (PROJECT.md §7).
 - **Licensing**: everything read here is MIT-licensed VS Code / Microsoft, but no code should be copied wholesale; this report intentionally records identifiers and behaviors only.

@@ -7,7 +7,7 @@ import type { WebviewMessage } from "../../../src/shared/protocol";
 import { hostBridge, isPreview } from "./vscodeApi";
 
 /** Message type prefix used between the preview shell and the preview mock host. */
-export const MOCK_MESSAGE_TYPE = "codetrail:mock";
+export const MOCK_MESSAGE_TYPE = "activityreel:mock";
 
 export type Adapter = (message: WebviewMessage) => void;
 

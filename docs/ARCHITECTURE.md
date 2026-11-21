@@ -1,4 +1,4 @@
-# CodeTrail — Architecture & Module Contracts (v1)
+# ActivityReel — Architecture & Module Contracts (v1)
 
 Status: implementation contract. Grounded in `docs/PROJECT.md`, `docs/design/ui-spec.md`,
 and the research reports under `docs/research/`. API availability was confirmed by
@@ -264,7 +264,7 @@ validates ranges. No `vscode` import may appear under `src/shared`.
   command text and `exitCode` at end (`exitCode === undefined` is not failure). Never assume
   `cwd` exists.
 - Command text is stored locally; README and setting warn that commands may contain secrets.
-  `codetrail.trackTerminal` disables the whole tracker.
+  `activityreel.trackTerminal` disables the whole tracker.
 - Without shell integration, no terminal events (never fake them).
 
 ### 5.5 Ordering and coalescing
@@ -325,7 +325,7 @@ export function attachWordDiff(hunks: DiffHunk[]): DiffHunk[];
   payloads are evicted with their events. **SUPERVISOR**: this reconciles the UI target of 1000+
   events with a bounded memory/persistence footprint.
 - Stats are computed incrementally; `durationMs` is derived at read time from `sessionStartedAt`.
-- Persistence: versioned JSON at `context.storageUri` (`codetrail-activity.v1.json`), written
+- Persistence: versioned JSON at `context.storageUri` (`activityreel-activity.v1.json`), written
   atomically (temp + `workspace.fs.rename(overwrite: true)`) and debounced 2 s, only when dirty;
   also on deactivate best-effort. A failed write logs once and never blocks tracking.
 - Schema validation on load: a newer `v` is opened read-only and the file renamed aside before any
@@ -377,24 +377,24 @@ Rules:
 
 ## 9. Surfaces, commands, configuration
 
-- Sidebar: `viewsContainers.activitybar` (`codetrail`) + `views` (`codetrail.feed`, type webview).
-- Panel: created by `codetrail.open`, restored by `WebviewPanelSerializer` (`codetrail.panel`).
-- About: `codetrail.about` opens a panel with `surface=about`.
-- Commands: `codetrail.open`, `codetrail.togglePause`, `codetrail.clear`,
-  `codetrail.exportJson`, `codetrail.exportMarkdown`, `codetrail.about`.
-- Keybinding: `ctrl+alt+l` / `cmd+alt+l` for `codetrail.open` (user-overridable).
-- Status bar: `$(pulse) CodeTrail` / `$(debug-pause)`; tooltip shows session stats; opens panel.
+- Sidebar: `viewsContainers.activitybar` (`activityreel`) + `views` (`activityreel.feed`, type webview).
+- Panel: created by `activityreel.open`, restored by `WebviewPanelSerializer` (`activityreel.panel`).
+- About: `activityreel.about` opens a panel with `surface=about`.
+- Commands: `activityreel.open`, `activityreel.togglePause`, `activityreel.clear`,
+  `activityreel.exportJson`, `activityreel.exportMarkdown`, `activityreel.about`.
+- Keybinding: `ctrl+alt+l` / `cmd+alt+l` for `activityreel.open` (user-overridable).
+- Status bar: `$(pulse) ActivityReel` / `$(debug-pause)`; tooltip shows session stats; opens panel.
 - Manifest: `engines.vscode ^1.93.0`, `activationEvents: ["onStartupFinished",
-  "onWebviewPanel:codetrail.panel"]`, `capabilities.untrustedWorkspaces`
+  "onWebviewPanel:activityreel.panel"]`, `capabilities.untrustedWorkspaces`
   supported (observer only; strict CSP; no code execution) and `capabilities.virtualWorkspaces`.
 - Settings (all workspace-scoped unless noted): `enabled` (true), `maxEvents` (1000),
   `maxDiffLines` (500), `contextLines` (3), `debounceMs` (300), `persistHistory` (true),
   `trackFileOperations` (true), `trackTasks` (true), `trackDebug` (true), `trackTerminal` (true),
   `trackExternalChanges` (true), `excludeGlobs`, `maxFileSizeKB` (2048), `statusBar` (true),
   `locale` ("auto" | "en" | "fa"), `openFilesOutsideWorkspace` (false).
-- `codetrail.enabled=false` stops tracking; history stays readable. Pause is a runtime state on
+- `activityreel.enabled=false` stops tracking; history stays readable. Pause is a runtime state on
   top of the setting and is not persisted.
-- Locale: extension-host strings via `src/ui/i18n.ts` (a custom table, because `codetrail.locale`
+- Locale: extension-host strings via `src/ui/i18n.ts` (a custom table, because `activityreel.locale`
   must win over the VS Code UI language); webview has its
   own `en`/`fa` bundles. Direction comes from the resolved locale (`fa` → `rtl`), not from VS
   Code's UI language alone.
@@ -415,7 +415,7 @@ Rules:
   the extension host (`vscode.env.clipboard.writeText`) with a 2 MB cap.
 - Workspace boundary enforced for tracking, opening, and export; symlinks resolved via VS Code URIs.
 - Terminal command text is sensitive: local only, disableable, and called out in the README.
-- Export uses the native save dialog; filenames are fixed (`codetrail-export-<date>.<ext>`).
+- Export uses the native save dialog; filenames are fixed (`activityreel-export-<date>.<ext>`).
 
 ## 11. Performance budgets
 
@@ -437,11 +437,11 @@ Rules:
 - `npm run test`: Vitest unit + webview tests.
 - `npm run test:integration`: build + `vscode-test` against the installed VS Code if supported,
   else the pinned download.
-- `npm run package`: check + `vsce package` -> `codetrail-<version>.vsix`.
+- `npm run package`: check + `vsce package` -> `activityreel-<version>.vsix`.
 - VSIX contains `dist/**`, `media/**`, `images/**`, `package.json`, `README.md`, `CHANGELOG.md`,
   `LICENSE`, `THIRD_PARTY_NOTICES.md`; excludes `src/`, `webview/`, `test/`, `docs/`,
   `node_modules/` and configs.
-- Integration tests expose a test-only command (`codetrail.__test.snapshot`) gated by
+- Integration tests expose a test-only command (`activityreel.__test.snapshot`) gated by
   `ExtensionMode.Test` to inspect events without driving the webview.
 
 ## 13. Resolved decisions and remaining runtime checks
@@ -453,7 +453,7 @@ Resolved from `docs/research/algorithms-and-apis.md` (2026-11-21):
 2. `contentChanges` ranges refer to the pre-change document; `version` increases on undo/redo.
    We therefore re-read at flush and use `version` only for no-op detection.
 3. Diff thresholds are fixed in §6; small-input DP is length-weighted; no move detection in v1.
-4. `onWebviewPanel:codetrail.panel` is required to restore a serialized panel after reload.
+4. `onWebviewPanel:activityreel.panel` is required to restore a serialized panel after reload.
 5. `storageUri` + `workspace.fs` is the only persistence route; atomic rename is best-effort
    (`overwrite: true`) and a failed rename falls back to a direct write.
 

@@ -4,7 +4,7 @@ import type { LocaleSetting, Settings } from "../shared/model";
 
 declare const require: ((id: string) => unknown) | undefined;
 
-export const CONFIG_SECTION = "codetrail";
+export const CONFIG_SECTION = "activityreel";
 
 const LOCALES: readonly LocaleSetting[] = ["auto", "en", "fa"];
 
@@ -136,7 +136,7 @@ const READ_KEYS: readonly string[] = [
   "locale",
 ];
 
-/** Reads `codetrail.*` from workspace configuration and validates it. */
+/** Reads `activityreel.*` from workspace configuration and validates it. */
 export function readSettings(): Settings {
   try {
     const vscode = loadVscode();
@@ -155,7 +155,7 @@ function fallbackSettings(): Settings {
   return { ...DEFAULT_SETTINGS, excludeGlobs: [...DEFAULT_SETTINGS.excludeGlobs] };
 }
 
-/** Fires for any `codetrail.*` change; callers decide which keys are relevant. */
+/** Fires for any `activityreel.*` change; callers decide which keys are relevant. */
 export function onSettingsChanged(cb: () => void): { dispose(): void } {
   try {
     const vscode = loadVscode();

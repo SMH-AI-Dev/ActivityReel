@@ -362,10 +362,10 @@ export function startMockHost(options?: { seed?: MockSeed; stream?: boolean }): 
         send({
           type: "init",
           protocol: PROTOCOL_VERSION,
-          surface: (window.__CODETRAIL__?.surface as "panel" | "sidebar" | "about" | undefined) ?? "panel",
+          surface: (window.__ACTIVITYREEL__?.surface as "panel" | "sidebar" | "about" | undefined) ?? "panel",
           version: state.version,
-          locale: window.__CODETRAIL__?.locale === "fa" ? "fa" : "en",
-          direction: window.__CODETRAIL__?.locale === "fa" ? "rtl" : "ltr",
+          locale: window.__ACTIVITYREEL__?.locale === "fa" ? "fa" : "en",
+          direction: window.__ACTIVITYREEL__?.locale === "fa" ? "rtl" : "ltr",
           settings: state.settings,
           events: state.events,
           stats: state.stats,
@@ -397,7 +397,7 @@ export function startMockHost(options?: { seed?: MockSeed; stream?: boolean }): 
         send({
           type: "toast",
           level: "info",
-          message: window.__CODETRAIL__?.locale === "fa" ? "در نسخهٔ پیش‌نمایش فایل باز نمی‌شود." : "Preview mode: the file would open in your editor.",
+          message: window.__ACTIVITYREEL__?.locale === "fa" ? "در نسخهٔ پیش‌نمایش فایل باز نمی‌شود." : "Preview mode: the file would open in your editor.",
         });
         break;
       case "copy":
@@ -405,7 +405,7 @@ export function startMockHost(options?: { seed?: MockSeed; stream?: boolean }): 
         if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
           void navigator.clipboard.writeText(message.type === "copy" ? message.text : "").catch(() => undefined);
         }
-        send({ type: "toast", level: "info", message: window.__CODETRAIL__?.locale === "fa" ? "در کلیپ‌بورد کپی شد." : "Copied to clipboard." });
+        send({ type: "toast", level: "info", message: window.__ACTIVITYREEL__?.locale === "fa" ? "در کلیپ‌بورد کپی شد." : "Copied to clipboard." });
         break;
       case "requestOlder": {
         const next = makeOlderBatch(state, message.beforeSeq);

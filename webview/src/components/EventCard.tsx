@@ -7,7 +7,7 @@
 import { memo } from "react";
 import type { DiffPayload } from "../../../src/shared/model";
 import type { ActivityEvent } from "../../../src/shared/model";
-import { useController } from "../app/CodeTrailContext";
+import { useController } from "../app/ActivityReelContext";
 import { formatClock, formatDuration, formatNumber, formatRelative } from "../i18n";
 import type { MessageKey } from "../i18n";
 import { displayInfo, isExpandable, KIND_META, railFor, statusLabelKey } from "./eventMeta";

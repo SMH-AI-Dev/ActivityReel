@@ -267,7 +267,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     };
     const text = format === "json" ? exportJson(bundle) : exportMarkdown(bundle);
     const date = new Date().toISOString().slice(0, 10);
-    const fileName = `codetrail-export-${date}.${format === "json" ? "json" : "md"}`;
+    const fileName = `activityreel-export-${date}.${format === "json" ? "json" : "md"}`;
     const folder = vscode.workspace.workspaceFolders?.[0];
     const target = await vscode.window.showSaveDialog({
       saveLabel: hostString(locale, format === "json" ? "exportJson" : "exportMarkdown"),
@@ -359,7 +359,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (!event.affectsConfiguration("codetrail")) return;
+      if (!event.affectsConfiguration("activityreel")) return;
       settings = readSettings();
       store.setMaxEvents(settings.maxEvents);
       ensurePersistence();

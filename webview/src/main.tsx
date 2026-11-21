@@ -1,6 +1,6 @@
 /**
  * Webview entry point. One IIFE bundle serves all three surfaces; the surface and locale are
- * injected at bootstrap (`window.__CODETRAIL__ = { surface, locale }`), never by URL parsing.
+ * injected at bootstrap (`window.__ACTIVITYREEL__ = { surface, locale }`), never by URL parsing.
  */
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
@@ -9,7 +9,7 @@ import "./styles/global.css";
 type SurfaceHint = "panel" | "sidebar" | "about";
 
 function readBootstrap(): { surface: SurfaceHint; locale?: string } {
-  const raw = window.__CODETRAIL__;
+  const raw = window.__ACTIVITYREEL__;
   const surface = raw?.surface;
   return {
     surface: surface === "sidebar" || surface === "about" ? surface : "panel",

@@ -3,7 +3,7 @@
  * (5-up), filter bar, virtualized feed, new-activity pill and the signature footer.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { hasActiveFilters } from "../app/selectors";
 import { livenessOf } from "../components/LiveBadge";
 import { LiveBadge } from "../components/LiveBadge";

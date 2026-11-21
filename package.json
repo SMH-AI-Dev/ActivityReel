@@ -1,6 +1,6 @@
 {
-  "name": "codetrail",
-  "displayName": "CodeTrail Live",
+  "name": "activityreel",
+  "displayName": "ActivityReel",
   "description": "See every change in your workspace, live: diffs, saves, tasks and terminal commands. Local, private.",
   "version": "0.1.0",
   "publisher": "smh-dev-ai",
@@ -52,12 +52,12 @@
   "pricing": "Free",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SMH-AI-Dev/CodeTrail.git"
+    "url": "https://github.com/SMH-AI-Dev/ActivityReel.git"
   },
   "bugs": {
-    "url": "https://github.com/SMH-AI-Dev/CodeTrail/issues"
+    "url": "https://github.com/SMH-AI-Dev/ActivityReel/issues"
   },
-  "homepage": "https://github.com/SMH-AI-Dev/CodeTrail#readme",
+  "homepage": "https://github.com/SMH-AI-Dev/ActivityReel#readme",
   "qna": "marketplace",
   "extensionKind": [
     "workspace"
@@ -70,49 +70,49 @@
   },
   "activationEvents": [
     "onStartupFinished",
-    "onWebviewPanel:codetrail.panel"
+    "onWebviewPanel:activityreel.panel"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "codetrail.open",
+        "command": "activityreel.open",
         "title": "Open Live Activity",
-        "category": "CodeTrail",
+        "category": "ActivityReel",
         "icon": "$(open-preview)"
       },
       {
-        "command": "codetrail.togglePause",
+        "command": "activityreel.togglePause",
         "title": "Pause / Resume Tracking",
-        "category": "CodeTrail",
+        "category": "ActivityReel",
         "icon": "$(debug-pause)"
       },
       {
-        "command": "codetrail.clear",
+        "command": "activityreel.clear",
         "title": "Clear Activity",
-        "category": "CodeTrail",
+        "category": "ActivityReel",
         "icon": "$(clear-all)"
       },
       {
-        "command": "codetrail.exportJson",
+        "command": "activityreel.exportJson",
         "title": "Export Activity as JSON",
-        "category": "CodeTrail"
+        "category": "ActivityReel"
       },
       {
-        "command": "codetrail.exportMarkdown",
+        "command": "activityreel.exportMarkdown",
         "title": "Export Activity as Markdown",
-        "category": "CodeTrail"
+        "category": "ActivityReel"
       },
       {
-        "command": "codetrail.about",
-        "title": "About CodeTrail",
-        "category": "CodeTrail",
+        "command": "activityreel.about",
+        "title": "About ActivityReel",
+        "category": "ActivityReel",
         "icon": "$(info)"
       }
     ],
     "keybindings": [
       {
-        "command": "codetrail.open",
+        "command": "activityreel.open",
         "key": "ctrl+alt+l",
         "mac": "cmd+alt+l"
       }
@@ -120,17 +120,17 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "codetrail",
-          "title": "CodeTrail",
+          "id": "activityreel",
+          "title": "ActivityReel",
           "icon": "media/activity.svg"
         }
       ]
     },
     "views": {
-      "codetrail": [
+      "activityreel": [
         {
           "type": "webview",
-          "id": "codetrail.feed",
+          "id": "activityreel.feed",
           "name": "Live activity"
         }
       ]
@@ -138,50 +138,50 @@
     "menus": {
       "view/title": [
         {
-          "command": "codetrail.togglePause",
-          "when": "view == codetrail.feed",
+          "command": "activityreel.togglePause",
+          "when": "view == activityreel.feed",
           "group": "navigation@1"
         },
         {
-          "command": "codetrail.clear",
-          "when": "view == codetrail.feed",
+          "command": "activityreel.clear",
+          "when": "view == activityreel.feed",
           "group": "navigation@2"
         },
         {
-          "command": "codetrail.open",
-          "when": "view == codetrail.feed",
+          "command": "activityreel.open",
+          "when": "view == activityreel.feed",
           "group": "navigation@3"
         }
       ],
       "commandPalette": [
         {
-          "command": "codetrail.togglePause",
-          "when": "codetrail.enabled"
+          "command": "activityreel.togglePause",
+          "when": "activityreel.enabled"
         },
         {
-          "command": "codetrail.clear",
-          "when": "codetrail.enabled"
+          "command": "activityreel.clear",
+          "when": "activityreel.enabled"
         },
         {
-          "command": "codetrail.exportJson",
-          "when": "codetrail.enabled"
+          "command": "activityreel.exportJson",
+          "when": "activityreel.enabled"
         },
         {
-          "command": "codetrail.exportMarkdown",
-          "when": "codetrail.enabled"
+          "command": "activityreel.exportMarkdown",
+          "when": "activityreel.enabled"
         }
       ]
     },
     "configuration": {
-      "title": "CodeTrail",
+      "title": "ActivityReel",
       "properties": {
-        "codetrail.enabled": {
+        "activityreel.enabled": {
           "type": "boolean",
           "default": true,
           "scope": "window",
           "markdownDescription": "Track activity in this window. Disabling stops all tracking; the existing history stays readable."
         },
-        "codetrail.maxEvents": {
+        "activityreel.maxEvents": {
           "type": "number",
           "default": 1000,
           "minimum": 100,
@@ -189,7 +189,7 @@
           "scope": "window",
           "markdownDescription": "Maximum number of events kept in memory and history. Diffs are retained for the newest 300 events."
         },
-        "codetrail.maxDiffLines": {
+        "activityreel.maxDiffLines": {
           "type": "number",
           "default": 500,
           "minimum": 50,
@@ -197,7 +197,7 @@
           "scope": "window",
           "markdownDescription": "Maximum number of diff lines stored per change."
         },
-        "codetrail.contextLines": {
+        "activityreel.contextLines": {
           "type": "number",
           "default": 3,
           "minimum": 0,
@@ -205,7 +205,7 @@
           "scope": "window",
           "markdownDescription": "Unchanged context lines shown around each diff hunk."
         },
-        "codetrail.debounceMs": {
+        "activityreel.debounceMs": {
           "type": "number",
           "default": 300,
           "minimum": 100,
@@ -213,43 +213,43 @@
           "scope": "window",
           "markdownDescription": "Idle time before a burst of edits becomes one event. Continuous bursts are flushed after 1.5 seconds."
         },
-        "codetrail.persistHistory": {
+        "activityreel.persistHistory": {
           "type": "boolean",
           "default": true,
           "scope": "window",
           "markdownDescription": "Keep activity history in workspace storage between sessions. All data stays local."
         },
-        "codetrail.trackFileOperations": {
+        "activityreel.trackFileOperations": {
           "type": "boolean",
           "default": true,
           "scope": "window",
           "description": "Show file create, delete, rename and external change events."
         },
-        "codetrail.trackExternalChanges": {
+        "activityreel.trackExternalChanges": {
           "type": "boolean",
           "default": true,
           "scope": "window",
           "description": "Show on-disk changes made outside the editor (watcher events)."
         },
-        "codetrail.trackTasks": {
+        "activityreel.trackTasks": {
           "type": "boolean",
           "default": true,
           "scope": "window",
           "description": "Show task start, finish and exit status."
         },
-        "codetrail.trackDebug": {
+        "activityreel.trackDebug": {
           "type": "boolean",
           "default": true,
           "scope": "window",
           "description": "Show debug session start and end."
         },
-        "codetrail.trackTerminal": {
+        "activityreel.trackTerminal": {
           "type": "boolean",
           "default": true,
           "scope": "window",
           "markdownDescription": "Show terminal commands when shell integration is available. Command text may contain secrets; it is stored locally only."
         },
-        "codetrail.excludeGlobs": {
+        "activityreel.excludeGlobs": {
           "type": "array",
           "items": {
             "type": "string"
@@ -265,7 +265,7 @@
           "scope": "resource",
           "markdownDescription": "Glob patterns excluded from file and edit tracking."
         },
-        "codetrail.maxFileSizeKB": {
+        "activityreel.maxFileSizeKB": {
           "type": "number",
           "default": 2048,
           "minimum": 64,
@@ -273,13 +273,13 @@
           "scope": "window",
           "markdownDescription": "Documents larger than this are not diffed."
         },
-        "codetrail.statusBar": {
+        "activityreel.statusBar": {
           "type": "boolean",
           "default": true,
           "scope": "window",
-          "description": "Show the CodeTrail status bar item."
+          "description": "Show the ActivityReel status bar item."
         },
-        "codetrail.locale": {
+        "activityreel.locale": {
           "type": "string",
           "enum": [
             "auto",
@@ -293,9 +293,9 @@
           ],
           "default": "auto",
           "scope": "window",
-          "description": "Language used by the CodeTrail interface."
+          "description": "Language used by the ActivityReel interface."
         },
-        "codetrail.openFilesOutsideWorkspace": {
+        "activityreel.openFilesOutsideWorkspace": {
           "type": "boolean",
           "default": false,
           "scope": "window",

@@ -45,12 +45,12 @@ export function renderWebviewHtml(
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="${csp}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CodeTrail</title>
+  <title>ActivityReel</title>
   <link rel="stylesheet" href="${styleUri}" />
 </head>
 <body data-surface="${surface}">
   <div id="root"></div>
-  <script nonce="${scriptNonce}">window.__CODETRAIL__ = ${bootstrap};</script>
+  <script nonce="${scriptNonce}">window.__ACTIVITYREEL__ = ${bootstrap};</script>
   <script nonce="${scriptNonce}" src="${scriptUri}"></script>
 </body>
 </html>

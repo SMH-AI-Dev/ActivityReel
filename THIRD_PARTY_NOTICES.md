@@ -1,6 +1,6 @@
 # Third-party notices
 
-CodeTrail bundles the following runtime libraries into its webview. Build-time tools
+ActivityReel bundles the following runtime libraries into its webview. Build-time tools
 (Vite, esbuild, TypeScript, ESLint, Vitest, vsce) are not shipped.
 
 ## React and React DOM

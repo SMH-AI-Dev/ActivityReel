@@ -5,7 +5,7 @@
 import { forwardRef } from "react";
 import type { Ref } from "react";
 import type { ButtonHTMLAttributes, HTMLAttributes } from "react";
-import { useT } from "../app/CodeTrailContext";
+import { useT } from "../app/ActivityReelContext";
 import styles from "./LiveBadge.module.css";
 
 export type Liveness = "live" | "paused" | "stale";

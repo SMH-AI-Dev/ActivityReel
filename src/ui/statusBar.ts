@@ -21,10 +21,10 @@ export class StatusBar {
       this.item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
       this.item.command = COMMANDS.open;
     }
-    this.item.text = paused ? "$(debug-pause) CodeTrail" : "$(pulse) CodeTrail";
+    this.item.text = paused ? "$(debug-pause) ActivityReel" : "$(pulse) ActivityReel";
     const tooltip = new vscode.MarkdownString();
     tooltip.appendText(
-      `CodeTrail\n${stats.events} ${hostString(locale, "events")} · ${stats.files} ${hostString(locale, "files")}\n`,
+      `ActivityReel\n${stats.events} ${hostString(locale, "events")} · ${stats.files} ${hostString(locale, "files")}\n`,
     );
     tooltip.appendText(
       `+${stats.added} ${hostString(locale, "added")} −${stats.removed} ${hostString(locale, "removed")}`,

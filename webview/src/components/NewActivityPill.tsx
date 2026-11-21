@@ -3,7 +3,7 @@
  * Clicking jumps to the top instantly (no smooth scrolling) and clears the counter.
  */
 import { forwardRef } from "react";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { formatNumber } from "../i18n";
 import { ArrowDownIcon } from "./Icons";
 import styles from "./NewActivityPill.module.css";

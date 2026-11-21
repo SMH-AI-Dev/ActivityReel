@@ -3,7 +3,7 @@
  * after 4 s; the close button returns nothing and never steals focus.
  */
 import { useEffect, useRef } from "react";
-import { useDispatch, useT } from "../app/CodeTrailContext";
+import { useDispatch, useT } from "../app/ActivityReelContext";
 import type { ToastState } from "../app/store";
 import { CloseIcon } from "./Icons";
 import common from "../styles/common.module.css";

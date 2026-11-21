@@ -2,23 +2,23 @@ import type { Settings } from "./model";
 
 export const PROTOCOL_VERSION = 1;
 
-export const VIEW_CONTAINER_ID = "codetrail";
-export const VIEW_ID = "codetrail.feed";
-export const PANEL_VIEW_TYPE = "codetrail.panel";
-export const ABOUT_VIEW_TYPE = "codetrail.about";
+export const VIEW_CONTAINER_ID = "activityreel";
+export const VIEW_ID = "activityreel.feed";
+export const PANEL_VIEW_TYPE = "activityreel.panel";
+export const ABOUT_VIEW_TYPE = "activityreel.about";
 
-export const STORAGE_FILE = "codetrail-activity.v1.json";
+export const STORAGE_FILE = "activityreel-activity.v1.json";
 export const STORAGE_SCHEMA_VERSION = 1;
-export const FILTERS_STATE_KEY = "codetrail.filters.v1";
+export const FILTERS_STATE_KEY = "activityreel.filters.v1";
 
 export const COMMANDS = {
-  open: "codetrail.open",
-  togglePause: "codetrail.togglePause",
-  clear: "codetrail.clear",
-  exportJson: "codetrail.exportJson",
-  exportMarkdown: "codetrail.exportMarkdown",
-  about: "codetrail.about",
-  testSnapshot: "codetrail.__test.snapshot",
+  open: "activityreel.open",
+  togglePause: "activityreel.togglePause",
+  clear: "activityreel.clear",
+  exportJson: "activityreel.exportJson",
+  exportMarkdown: "activityreel.exportMarkdown",
+  about: "activityreel.about",
+  testSnapshot: "activityreel.__test.snapshot",
 } as const;
 
 export const DEFAULT_EXCLUDES = [

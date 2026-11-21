@@ -16,7 +16,7 @@ export interface Logger {
  * (`displayPath` output) are the only path form allowed.
  */
 export function createLogger(): Logger {
-  const channel = vscode.window.createOutputChannel("CodeTrail", { log: true });
+  const channel = vscode.window.createOutputChannel("ActivityReel", { log: true });
   let disposed = false;
 
   type Level = "info" | "warn" | "error" | "debug";

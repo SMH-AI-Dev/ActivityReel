@@ -6,7 +6,7 @@ import { memo, useMemo } from "react";
 import type { ResolvedLocale, SessionStats } from "../../../src/shared/model";
 import { formatDuration, formatNumber } from "../i18n";
 import { StatCard } from "./StatCard";
-import { useT } from "../app/CodeTrailContext";
+import { useT } from "../app/ActivityReelContext";
 import styles from "./StatsStrip.module.css";
 
 export interface StatsStripProps {

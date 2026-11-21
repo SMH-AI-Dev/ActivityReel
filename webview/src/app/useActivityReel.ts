@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useReducer, useRef } from "react";
 import type { Surface } from "../../../src/shared/model";
 import { createTranslator } from "../i18n";
-import type { Controller } from "./CodeTrailContext";
+import type { Controller } from "./ActivityReelContext";
 import { postToHost } from "./adapters";
 import { currentSurfaceHint, ensureMockHost, subscribeToHost } from "./client";
 import { useNow, useReducedMotion } from "./hooks";
@@ -17,7 +17,7 @@ function surfaceFromHint(state: AppState): Surface {
   return state.initialized ? state.surface : currentSurfaceHint();
 }
 
-export function useCodeTrail(): Controller & { hydrated: boolean; preview: boolean } {
+export function useActivityReel(): Controller & { hydrated: boolean; preview: boolean } {
   const initial = useMemo<AppState>(() => {
     let persisted: unknown;
     try {

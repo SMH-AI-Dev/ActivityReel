@@ -3,12 +3,12 @@
  * store whole sentences with placeholders (plural forms use `_one` / `_other` keys).
  */
 export const en = {
-  "app.title": "CodeTrail",
+  "app.title": "ActivityReel",
 
-  "hero.product": "CodeTrail",
+  "hero.product": "ActivityReel",
   "hero.tagline": "See every change in your workspace, live.",
-  "hero.orbitLabel": "CodeTrail orbit mark",
-  "hero.orbitPausedLabel": "CodeTrail orbit mark, tracking paused",
+  "hero.orbitLabel": "ActivityReel orbit mark",
+  "hero.orbitPausedLabel": "ActivityReel orbit mark, tracking paused",
 
   "badge.live": "Live",
   "badge.paused": "Paused",
@@ -128,7 +128,7 @@ export const en = {
   "header.clear": "Clear activity",
   "header.exportJson": "Export as JSON",
   "header.exportMarkdown": "Export as Markdown",
-  "header.about": "About CodeTrail",
+  "header.about": "About ActivityReel",
   "header.openPanel": "Open full panel",
   "header.more": "More actions",
 
@@ -140,10 +140,10 @@ export const en = {
   "footer.privacy": "privacy-first · local only",
   "footer.privacyShort": "local only",
 
-  "about.title": "About CodeTrail",
+  "about.title": "About ActivityReel",
   "about.missionTitle": "Mission",
   "about.mission":
-    "CodeTrail gives you one calm, live view of everything happening in your workspace: text edits with rich diffs, file create/delete/rename, saves, tasks, debug sessions and terminal commands.",
+    "ActivityReel gives you one calm, live view of everything happening in your workspace: text edits with rich diffs, file create/delete/rename, saves, tasks, debug sessions and terminal commands.",
   "about.mission2":
     "It is an observer. It works with every editor and AI agent, needs no integration, and never changes your files.",
   "about.featuresTitle": "What you get",
@@ -159,7 +159,7 @@ export const en = {
   "about.privacyBody":
     "No telemetry, no network requests, no accounts. History is stored locally, scoped to this workspace, capped and yours to clear at any time.",
   "about.shortcutsTitle": "Keyboard shortcuts",
-  "about.shortcut.openPanel": "Open CodeTrail panel",
+  "about.shortcut.openPanel": "Open ActivityReel panel",
   "about.shortcut.commandPalette": "Command Palette",
   "about.shortcut.focusFeed": "Move between cards",
   "about.authorTitle": "Author",

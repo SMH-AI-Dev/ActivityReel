@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { ResolvedLocale } from "../../../src/shared/model";
-import { useController } from "./CodeTrailContext";
+import { useController } from "./ActivityReelContext";
 
 /**
  * Reduced-motion hook: honours both `prefers-reduced-motion` and VS Code's

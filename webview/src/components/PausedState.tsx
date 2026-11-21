@@ -2,7 +2,7 @@
  * Paused banner (in-flow, 40 px) under the hero with a Resume button.
  * The sidebar variant is a 28 px pill reported by LiveBadge; this component is the banner.
  */
-import { useT } from "../app/CodeTrailContext";
+import { useT } from "../app/ActivityReelContext";
 import { PlayIcon } from "./Icons";
 import common from "../styles/common.module.css";
 import styles from "./PausedState.module.css";

@@ -1,7 +1,7 @@
 # Support
 
-- Documentation and source: https://github.com/SMH-AI-Dev/CodeTrail
-- Issues: https://github.com/SMH-AI-Dev/CodeTrail/issues
+- Documentation and source: https://github.com/SMH-AI-Dev/ActivityReel
+- Issues: https://github.com/SMH-AI-Dev/ActivityReel/issues
 - Email: dev.smh.ai@gmail.com
 
 When reporting a problem, include your VS Code version, operating system, and the

@@ -22,19 +22,19 @@ export const ControllerContext = createContext<Controller | null>(null);
 
 export function useAppState(): AppState {
   const ctx = useContext(StateContext);
-  if (!ctx) throw new Error("useAppState must be used inside <CodeTrailProvider>");
+  if (!ctx) throw new Error("useAppState must be used inside <ActivityReelProvider>");
   return ctx;
 }
 
 export function useDispatch(): Dispatch<Action> {
   const ctx = useContext(DispatchContext);
-  if (!ctx) throw new Error("useDispatch must be used inside <CodeTrailProvider>");
+  if (!ctx) throw new Error("useDispatch must be used inside <ActivityReelProvider>");
   return ctx;
 }
 
 export function useController(): Controller {
   const ctx = useContext(ControllerContext);
-  if (!ctx) throw new Error("useController must be used inside <CodeTrailProvider>");
+  if (!ctx) throw new Error("useController must be used inside <ActivityReelProvider>");
   return ctx;
 }
 
@@ -43,7 +43,7 @@ export function useT(): Translator {
   return useController().t;
 }
 
-export function CodeTrailProvider({
+export function ActivityReelProvider({
   controller,
   children,
 }: {

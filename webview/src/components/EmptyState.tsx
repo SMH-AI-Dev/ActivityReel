@@ -4,7 +4,7 @@
  */
 import { forwardRef } from "react";
 import type { ReactNode } from "react";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { OrbitMark } from "./OrbitMark";
 import common from "../styles/common.module.css";
 import styles from "./EmptyState.module.css";

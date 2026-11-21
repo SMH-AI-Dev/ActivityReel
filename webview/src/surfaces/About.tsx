@@ -3,7 +3,7 @@
  * keyboard shortcuts, privacy block, author links and the same footer. No timeline.
  */
 import type { ReactNode } from "react";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { Hero } from "../components/Hero";
 import { OrbitMark } from "../components/OrbitMark";
 import { Footer, AUTHOR_LINKS } from "../components/Footer";

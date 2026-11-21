@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run CodeTrail",
+      "name": "Run ActivityReel",
       "type": "extensionHost",
       "request": "launch",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
@@ -10,7 +10,7 @@
       "preLaunchTask": "build"
     },
     {
-      "name": "Run CodeTrail Without Other Extensions",
+      "name": "Run ActivityReel Without Other Extensions",
       "type": "extensionHost",
       "request": "launch",
       "args": [

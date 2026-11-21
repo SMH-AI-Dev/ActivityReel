@@ -15,7 +15,7 @@
  */
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import type { DiffHunk, DiffLine, DiffPayload } from "../../../src/shared/model";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { formatNumber } from "../i18n";
 import { ChevronDownIcon, CopyIcon } from "./Icons";
 import common from "../styles/common.module.css";

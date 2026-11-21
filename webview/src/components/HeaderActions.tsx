@@ -3,7 +3,7 @@
  * Esc closes and returns focus to the trigger; outside click closes.
  */
 import { useEffect, useRef, useState } from "react";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { DownloadIcon, InfoIcon, MoreIcon, TrashIcon } from "./Icons";
 import common from "../styles/common.module.css";
 import styles from "./HeaderActions.module.css";

@@ -65,18 +65,18 @@ export class VscodeStorageAdapter implements StorageAdapter {
     }
   }
 
-  /** Best effort: copies the current file aside as `codetrail-activity.corrupt-<timestamp>.json`. */
+  /** Best effort: copies the current file aside as `activityreel-activity.corrupt-<timestamp>.json`. */
   async quarantine(): Promise<void> {
     const file = this.file;
     const folder = this.folder;
     if (!file || !folder) return;
     const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const target = vscode.Uri.joinPath(folder, `codetrail-activity.corrupt-${stamp}.json`);
+    const target = vscode.Uri.joinPath(folder, `activityreel-activity.corrupt-${stamp}.json`);
     try {
       const data = await vscode.workspace.fs.readFile(file);
       await vscode.workspace.fs.writeFile(target, data);
     } catch (error) {
-      console.warn(`CodeTrail: could not quarantine activity history (${errorMessage(error)}).`);
+      console.warn(`ActivityReel: could not quarantine activity history (${errorMessage(error)}).`);
     }
   }
 }

@@ -2,12 +2,12 @@ import type { Dictionary } from "./en";
 
 /** Persian (فارسی) UI strings — natural RTL copy, whole sentences with `{name}` placeholders. */
 export const fa: Dictionary = {
-  "app.title": "CodeTrail",
+  "app.title": "ActivityReel",
 
-  "hero.product": "CodeTrail",
+  "hero.product": "ActivityReel",
   "hero.tagline": "هر تغییری در فضای کاری‌تان را زنده ببینید.",
-  "hero.orbitLabel": "نشان مداری CodeTrail",
-  "hero.orbitPausedLabel": "نشان مداری CodeTrail، رهگیری متوقف است",
+  "hero.orbitLabel": "نشان مداری ActivityReel",
+  "hero.orbitPausedLabel": "نشان مداری ActivityReel، رهگیری متوقف است",
 
   "badge.live": "زنده",
   "badge.paused": "متوقف",
@@ -128,7 +128,7 @@ export const fa: Dictionary = {
   "header.clear": "پاک کردن فعالیت",
   "header.exportJson": "خروجی JSON",
   "header.exportMarkdown": "خروجی Markdown",
-  "header.about": "دربارهٔ CodeTrail",
+  "header.about": "دربارهٔ ActivityReel",
   "header.openPanel": "باز کردن پنل کامل",
   "header.more": "کارهای بیشتر",
 
@@ -140,12 +140,12 @@ export const fa: Dictionary = {
   "footer.privacy": "حریم خصوصی اول · فقط محلی",
   "footer.privacyShort": "فقط محلی",
 
-  "about.title": "دربارهٔ CodeTrail",
+  "about.title": "دربارهٔ ActivityReel",
   "about.missionTitle": "رسالت",
   "about.mission":
-    "CodeTrail یک نمای آرام و زنده از همه‌چیز در فضای کاری شما می‌دهد: ویرایش‌های متنی با تفاوت‌های دقیق، ایجاد و حذف و تغییر نام فایل‌ها، ذخیره‌ها، وظیفه‌ها، نشست‌های اشکال‌زدایی و فرمان‌های ترمینال.",
+    "ActivityReel یک نمای آرام و زنده از همه‌چیز در فضای کاری شما می‌دهد: ویرایش‌های متنی با تفاوت‌های دقیق، ایجاد و حذف و تغییر نام فایل‌ها، ذخیره‌ها، وظیفه‌ها، نشست‌های اشکال‌زدایی و فرمان‌های ترمینال.",
   "about.mission2":
-    "CodeTrail فقط ناظر است. با هر ویرایشگر و هر عامل هوش مصنوعی کار می‌کند، به یکپارچه‌سازی نیازی ندارد و هرگز فایل‌های شما را تغییر نمی‌دهد.",
+    "ActivityReel فقط ناظر است. با هر ویرایشگر و هر عامل هوش مصنوعی کار می‌کند، به یکپارچه‌سازی نیازی ندارد و هرگز فایل‌های شما را تغییر نمی‌دهد.",
   "about.featuresTitle": "چه چیزی به دست می‌آورید",
   "about.feature.live.title": "خط زمانی زنده",
   "about.feature.live.body": "هر ویرایش، ذخیره، وظیفه و فرمان ترمینال همان لحظه نمایان می‌شود.",
@@ -159,7 +159,7 @@ export const fa: Dictionary = {
   "about.privacyBody":
     "بدون آمارگیری، بدون درخواست شبکه و بدون حساب کاربری. تاریخچه به‌صورت محلی در همین فضای کاری ذخیره می‌شود، محدود است و هر زمان بخواهید پاک می‌شود.",
   "about.shortcutsTitle": "میان‌برهای صفحه‌کلید",
-  "about.shortcut.openPanel": "باز کردن پنل CodeTrail",
+  "about.shortcut.openPanel": "باز کردن پنل ActivityReel",
   "about.shortcut.commandPalette": "پالت فرمان",
   "about.shortcut.focusFeed": "جابه‌جایی میان کارت‌ها",
   "about.authorTitle": "نویسنده",

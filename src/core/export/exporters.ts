@@ -310,10 +310,10 @@ export function exportMarkdown(bundle: ExportBundle): string {
   const stats = sanitizedStats(bundle.stats);
   const parts: string[] = [];
 
-  parts.push("# CodeTrail activity export", "");
+  parts.push("# ActivityReel activity export", "");
   parts.push(`Exported: ${localDateTime(bundle.meta.exportedAt)}`);
   parts.push(
-    `Session: \`${escapeInlineCode(bundle.meta.sessionId)}\` · CodeTrail ${escapeInlineCode(
+    `Session: \`${escapeInlineCode(bundle.meta.sessionId)}\` · ActivityReel ${escapeInlineCode(
       bundle.meta.extensionVersion,
     )}`,
   );

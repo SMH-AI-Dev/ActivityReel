@@ -5,8 +5,8 @@ import type { ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ActivityEvent, DiffPayload } from "../../src/shared/model";
 import { DEFAULT_SETTINGS } from "../../src/shared/constants";
-import type { Controller } from "../../webview/src/app/CodeTrailContext";
-import { CodeTrailProvider } from "../../webview/src/app/CodeTrailContext";
+import type { Controller } from "../../webview/src/app/ActivityReelContext";
+import { ActivityReelProvider } from "../../webview/src/app/ActivityReelContext";
 import { initialState } from "../../webview/src/app/store";
 import type { AppState } from "../../webview/src/app/store";
 import { createTranslator, formatNumber } from "../../webview/src/i18n";
@@ -50,7 +50,7 @@ function renderUi(ui: ReactNode, { state, reducedMotion = true }: RenderOptions 
     now: NOW,
     reducedMotion,
   };
-  const result = render(<CodeTrailProvider controller={controller}>{ui}</CodeTrailProvider>);
+  const result = render(<ActivityReelProvider controller={controller}>{ui}</ActivityReelProvider>);
   return { ...result, post, dispatch, state: appState };
 }
 

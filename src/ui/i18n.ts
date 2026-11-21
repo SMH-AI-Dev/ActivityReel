@@ -5,11 +5,11 @@ import type { Direction, LocaleSetting, ResolvedLocale } from "../shared/model";
  * host cannot rely on `vscode.l10n.t` for user-facing text.
  */
 const EN = {
-  paused: "CodeTrail paused.",
-  resumed: "CodeTrail resumed.",
-  pausedQuestion: "CodeTrail is paused. Resume tracking?",
+  paused: "ActivityReel paused.",
+  resumed: "ActivityReel resumed.",
+  pausedQuestion: "ActivityReel is paused. Resume tracking?",
   cleared: "Activity history cleared.",
-  clearQuestion: "Clear all CodeTrail activity? This cannot be undone.",
+  clearQuestion: "Clear all ActivityReel activity? This cannot be undone.",
   clear: "Clear",
   cancel: "Cancel",
   exportJson: "Export activity as JSON",
@@ -25,18 +25,18 @@ const EN = {
   files: "files",
   added: "added",
   removed: "removed",
-  aboutTitle: "About CodeTrail",
-  panelTitle: "CodeTrail",
+  aboutTitle: "About ActivityReel",
+  panelTitle: "ActivityReel",
 } as const;
 
 export type HostStringKey = keyof typeof EN;
 
 const FA: Record<HostStringKey, string> = {
-  paused: "CodeTrail متوقف شد.",
-  resumed: "CodeTrail از سر گرفته شد.",
-  pausedQuestion: "CodeTrail متوقف شده است. رهگیری از سر گرفته شود؟",
+  paused: "ActivityReel متوقف شد.",
+  resumed: "ActivityReel از سر گرفته شد.",
+  pausedQuestion: "ActivityReel متوقف شده است. رهگیری از سر گرفته شود؟",
   cleared: "تاریخچه فعالیت پاک شد.",
-  clearQuestion: "همه فعالیت‌های CodeTrail پاک شود؟ این کار قابل بازگشت نیست.",
+  clearQuestion: "همه فعالیت‌های ActivityReel پاک شود؟ این کار قابل بازگشت نیست.",
   clear: "پاک کردن",
   cancel: "لغو",
   exportJson: "خروجی فعالیت به صورت JSON",
@@ -52,8 +52,8 @@ const FA: Record<HostStringKey, string> = {
   files: "فایل",
   added: "افزوده",
   removed: "حذف‌شده",
-  aboutTitle: "درباره CodeTrail",
-  panelTitle: "CodeTrail",
+  aboutTitle: "درباره ActivityReel",
+  panelTitle: "ActivityReel",
 };
 
 export function resolveLocale(setting: LocaleSetting, language: string): ResolvedLocale {

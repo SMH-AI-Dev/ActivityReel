@@ -13,7 +13,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { ActivityEvent, DiffPayload } from "../../../src/shared/model";
 import { LIMITS } from "../../../src/shared/constants";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { useCoalescedAnnouncer, useDebounced } from "../app/hooks";
 import { EventCard } from "./EventCard";
 import { EmptyState } from "./EmptyState";

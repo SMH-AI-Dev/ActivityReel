@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import type { ActivityEvent } from "../../../src/shared/model";
 import { selectVisibleEvents } from "../app/selectors";
-import { useController } from "../app/CodeTrailContext";
+import { useController } from "../app/ActivityReelContext";
 
 /** Filtered events, recomputed when events/filters change; `now` refreshed once a second. */
 export function useFilteredEvents(): { events: ActivityEvent[]; now: number } {

@@ -225,7 +225,7 @@ export class TrackingController {
 function subscribeSettingsChanged(cb: () => void): vscode.Disposable {
   try {
     return vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration("codetrail")) cb();
+      if (event.affectsConfiguration("activityreel")) cb();
     });
   } catch {
     return { dispose: () => undefined };

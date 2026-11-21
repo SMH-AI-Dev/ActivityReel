@@ -1,8 +1,8 @@
-# Zed & Dyad — Live Change Display / Diff Review Research for CodeTrail
+# Zed & Dyad — Live Change Display / Diff Review Research for ActivityReel
 
 Research date: **2026-11-21**. Purpose: extract architecture, data flow, algorithms and UX
-patterns for live change display and diff review that can inform CodeTrail (read-only VS Code
-observer, see `docs/PROJECT.md`). Findings are also checked against the CodeTrail contract in
+patterns for live change display and diff review that can inform ActivityReel (read-only VS Code
+observer, see `docs/PROJECT.md`). Findings are also checked against the ActivityReel contract in
 `docs/ARCHITECTURE.md` (`src/diff.ts`, `src/core/diff/*`, `src/core/tracking/*`).
 
 | Tag | Meaning |
@@ -11,7 +11,7 @@ observer, see `docs/PROJECT.md`). Findings are also checked against the CodeTrai
 | `[Inferred]` | Reasoned conclusion from source, not stated outright. |
 | `[Unknown]` | Not verifiable within the coverage of this study. |
 
-> **Supervisor scope note (2026-11-21):** CodeTrail's product is a *timeline of discrete change
+> **Supervisor scope note (2026-11-21):** ActivityReel's product is a *timeline of discrete change
 > events*, not a persistent per-file review session. Adopt from Zed: a per-document baseline,
 > cheap prefix/suffix recomputation, hunk shape, explicit card states, and path/time ordering.
 > Do **not** implement anchored cross-burst hunk identity, an advancing "review baseline",
@@ -59,8 +59,8 @@ a per-buffer *diff base* (baseline text)** held in `BufferDiff`.
 - `PendingHunk` + `PendingSense::{SetSecondaryStatus, Suppress}` model optimistic
   stage/unstage so a hunk can visually move *before* git finishes `[Observed in source]`
 
-`[Inferred]` The reusable concept for CodeTrail is: **one baseline snapshot per document +
-anchor-relative hunks + a summary tree**. CodeTrail's `createLineDiff(previous, current)`
+`[Inferred]` The reusable concept for ActivityReel is: **one baseline snapshot per document +
+anchor-relative hunks + a summary tree**. ActivityReel's `createLineDiff(previous, current)`
 (`src/diff.ts`) recomputes whole-file line arrays on every burst and returns flat `DiffLine[]`;
 early-return diff on every burst and lives only in the event payload.
 
@@ -90,7 +90,7 @@ early-return diff on every burst and lives only in the event payload.
   phantom hunks `[Observed in source]`
 
 `[Inferred]` Change origin (`ChangeAuthor::User | Agent`) is recorded *per snapshot update* but
-only used to rebase the baseline — it is never stored per hunk for display. CodeTrail already
+only used to rebase the baseline — it is never stored per hunk for display. ActivityReel already
 declines attribution (§PROJECT.md non-goals) and this corroborates the decision.
 
 ### 1.3 Snapshot & baseline data flow (Zed)
@@ -129,7 +129,7 @@ model is still generating, and `Full` finalises it — so hunks appear live duri
   auto-select the first hunk when the pane was empty, and fold deleted buffers
   `[Observed in source]`
 - `multibuffer_context_lines` = `editor.excerpt_context_lines` capped at 32, default 2
-  (`crates/editor/src/editor.rs`); CodeTrail already plans configurable context (default 3)
+  (`crates/editor/src/editor.rs`); ActivityReel already plans configurable context (default 3)
 - Hunk controls are **injected by the editor**, not drawn by the pane: `trait DiffHunkRenderer
   { render_hunk_controls(row, status, hunk_range, is_created_file, line_height, editor, ..) }`
   in `crates/editor/src/git.rs`; defaults from git, Zed agent supplies its own renderer with
@@ -199,7 +199,7 @@ discoverability pattern.
 **fallback Markdown preview** ("Diff preview unavailable: …") instead of dropping the card
 `[Observed in source]`. Validation rejects: non-text file types, repeated files, ambiguous
 paths, hunk counts that contradict the reported op. `[Inferred]` This is the closest analogue
-to what CodeTrail can observe from tools that *emit patches*, and it validates a strict
+to what ActivityReel can observe from tools that *emit patches*, and it validates a strict
 "trust the declared change list, treat the patch as decoration, degrade to text" split.
 
 ## 2. Dyad — architecture
@@ -302,54 +302,54 @@ only safe checkpoint" datapoint, and it explains why "revert" is rarely partial.
 
 ## 3. Cross-cutting: what is genuinely reusable for a read-only observer
 
-| Idea | Source | Reuse value for CodeTrail | Verdict for v1 |
+| Idea | Source | Reuse value for ActivityReel | Verdict for v1 |
 | --- | --- | --- | --- |
-| Per-document baseline + hunks anchored to a live buffer | `buffer_diff.rs`, `action_log.rs` (`diff_base: Rope`, `Range<Anchor>`) | Converts CodeTrail from "diff two strings per burst" to "maintain a baseline and only recompute the changed region"; enables hunk identity across bursts (stable hunk ids for keys/scroll) | **Adopt conceptually**: keep a per-document baseline string + hunk list with offsets relative to *current* text; recompute with prefix/suffix trim |
-| Summary-tree over hunks (`added_rows`/`removed_rows`) | `DiffHunkSummary` | O(log n) +/− totals and "seek hunk at row N" for 1k+ events and big files | Defer: a binary-search over a sorted hunk array is enough at CodeTrail scale |
-| "Review = advance baseline" | `keep_all_edits` sets `diff_base = snapshot` | For CodeTrail: **advancing the observed window** ("since last review / since N minutes / reset") without mutating anything; a *view* operation, not a write | **Adopt as a filter**, rename to avoid accept/reject language |
-| One-level undo of the last review action | `LastRejectUndo`, `undo_reject_toast.rs` | Only relevant if CodeTrail ever offers partial revert → out of scope v1 | Out of scope |
-| ChangeAuthor (User vs Agent) per snapshot | `ChangeAuthor::{User, Agent}` | Zed propagates authorship only via the *tool path*, never by heuristics; CodeTrail should keep `source: editor | external | unknown` | **Already decided**: no agent attribution |
+| Per-document baseline + hunks anchored to a live buffer | `buffer_diff.rs`, `action_log.rs` (`diff_base: Rope`, `Range<Anchor>`) | Converts ActivityReel from "diff two strings per burst" to "maintain a baseline and only recompute the changed region"; enables hunk identity across bursts (stable hunk ids for keys/scroll) | **Adopt conceptually**: keep a per-document baseline string + hunk list with offsets relative to *current* text; recompute with prefix/suffix trim |
+| Summary-tree over hunks (`added_rows`/`removed_rows`) | `DiffHunkSummary` | O(log n) +/− totals and "seek hunk at row N" for 1k+ events and big files | Defer: a binary-search over a sorted hunk array is enough at ActivityReel scale |
+| "Review = advance baseline" | `keep_all_edits` sets `diff_base = snapshot` | For ActivityReel: **advancing the observed window** ("since last review / since N minutes / reset") without mutating anything; a *view* operation, not a write | **Adopt as a filter**, rename to avoid accept/reject language |
+| One-level undo of the last review action | `LastRejectUndo`, `undo_reject_toast.rs` | Only relevant if ActivityReel ever offers partial revert → out of scope v1 | Out of scope |
+| ChangeAuthor (User vs Agent) per snapshot | `ChangeAuthor::{User, Agent}` | Zed propagates authorship only via the *tool path*, never by heuristics; ActivityReel should keep `source: editor | external | unknown` | **Already decided**: no agent attribution |
 | Sort review files by path like a git diff | `update_excerpts` | Predictable ordering in the review pane beats chronological | **Adopt**: offer "by file (path)" vs "by time" |
 | Context-lines excerpt window per file | `update_excerpts_for_path(.., context_lines, ..)`, cap 32 | Same as F2 collapsed hunks with configurable context | Already planned; confirm cap (e.g. max 20) |
-| Injecting "hunk controls" as editor-side widgets | `trait DiffHunkRenderer`, `BlockPlacement` in `block_map.rs` | CodeTrail cannot inject into editors; the *alternative* is a read-only "hunk peek" webview + editor decoration | **Out of scope** (inline editor UI); keep read-only decorations only |
+| Injecting "hunk controls" as editor-side widgets | `trait DiffHunkRenderer`, `BlockPlacement` in `block_map.rs` | ActivityReel cannot inject into editors; the *alternative* is a read-only "hunk peek" webview + editor decoration | **Out of scope** (inline editor UI); keep read-only decorations only |
 | Review tab de-duplicated by session, empty state with CTA | `AgentDiffPane::deploy` | Single reusable panel per session; explicit empty state | **Adopt**: empty state + one panel (already F7) |
-| Spinner while edits are still arriving | toolbar `has_pending_edit_tool_calls` | CodeTrail equivalent: "live" chip on a card while a burst is open | **Adopt**: `streaming`/`open` card state |
+| Spinner while edits are still arriving | toolbar `has_pending_edit_tool_calls` | ActivityReel equivalent: "live" chip on a card while a burst is open | **Adopt**: `streaming`/`open` card state |
 | Auto-select first hunk, auto-advance to next file when done | `update_excerpts`, `review_in_active_editor` | Navigation flow: open card → first hunk → next/prev hunk → next file | **Adopt** for navigation (read-only) |
 | Keyboard action names shown on buttons | `KeyBinding::for_action_in` | Discoverability of `Ctrl+Alt+L`, hunk nav | **Adopt** |
-| Transparent-window / theme-only colours | `agent_diff.rs` (`opaque_window`, `cx.theme().colors()`) | CodeTrail brand rule "no hard-coded colours" | Already planned |
+| Transparent-window / theme-only colours | `agent_diff.rs` (`opaque_window`, `cx.theme().colors()`) | ActivityReel brand rule "no hard-coded colours" | Already planned |
 | Typed IPC contracts + channel whitelist | `src/ipc/contracts/core.ts`, `preload/channels.ts` | Maps directly to VS Code `HostMessage/WebviewMessage` + runtime guards (`src/ui/messages.ts`) | **Adopt pattern**, not the code |
-| Stream patch with prefix hash (LCP) | `computeStreamingPatch` | For CodeTrail's "new events without losing scroll" and streaming partial diffs; prefix hash guards retroactive rewrite | **Optional**: adopt LCP-only update for huge bursts |
+| Stream patch with prefix hash (LCP) | `computeStreamingPatch` | For ActivityReel's "new events without losing scroll" and streaming partial diffs; prefix hash guards retroactive rewrite | **Optional**: adopt LCP-only update for huge bursts |
 | Incremental DB flush throttle (150 ms) | `chat_stream_handlers.ts` | Batched persistence writes (PROJECT budgets) | **Adopt** (already debounce) |
 | Placeholder taxonomy for unrenderable content | `src/shared/diff_placeholders.ts`, `VersionChangedFile` | "binary / too large" placeholders as *data*, not empty strings | **Adopt**: align with F2 truncation + limit states |
-| Stat computation in the view layer with a cell budget | `lineDiffStats.ts` (`MAX_LCS_CELLS`, trim) | Mirrors CodeTrail `maxCells = 180_000`; keep stats cheap and guarded | Already present in `src/diff.ts` |
-| Git-commit-per-turn as a checkpoint | `response_processor.ts` tail | Evidence for "checkpoints must be owned by the writer"; CodeTrail cannot own them | **Out of scope** |
-| Patch-text rendering with Markdown fallback | `acp_thread/src/diff.rs` | If CodeTrail ever ingests exported patches, degrade to text preview | Defer |
+| Stat computation in the view layer with a cell budget | `lineDiffStats.ts` (`MAX_LCS_CELLS`, trim) | Mirrors ActivityReel `maxCells = 180_000`; keep stats cheap and guarded | Already present in `src/diff.ts` |
+| Git-commit-per-turn as a checkpoint | `response_processor.ts` tail | Evidence for "checkpoints must be owned by the writer"; ActivityReel cannot own them | **Out of scope** |
+| Patch-text rendering with Markdown fallback | `acp_thread/src/diff.rs` | If ActivityReel ever ingests exported patches, degrade to text preview | Defer |
 | Working-tree diff vs committed diff distinction | `StagedDiffView` vs `VersionDiffView` | Matches planned "changes since what?" scope selector | **Adopt** the two scopes (session vs since-save), not git |
 
 ## 4. UX pattern table
 
-| Pattern | Zed | Dyad | What CodeTrail should take |
+| Pattern | Zed | Dyad | What ActivityReel should take |
 | --- | --- | --- | --- |
 | Where changes appear | Inline hunk controls in editor (single-file review), dedicated review multibuffer tab, agent panel card | Chat inline tag cards + "Modified Files" card at end of turn + right preview panel | Cards in a timeline panel; per-file rows; click → `vscode.diff` (read-only) |
 | Per-file grouping | Multibuffer excerpts per file, sorted by path, deleted files folded | File list 1/3 pane in Version/Staged diff views | File list with status badge `A/M/D/R` + `+N/−N` |
 | Per-hunk | Anchored hunks with prev/next, collapse/expand all; word diffs stored per hunk | None (no hunk model) | Hunks with context + word-diff; no accept/reject |
 | Review actions | Keep / Keep All / Reject / Reject All / Undo last reject | Commit / Revert version / Discard all | **None**; "copy diff", "open in editor", "export" |
 | Undo | Toast with Undo after reject | Guarded revert commit (+checkpoint commit if dirty) | Read-only: no undo/side effects |
-| History | Git + worktrees (+ thread history) | `versions` table over git commits, favourites/notes, preview checkout | Time-based session history from CodeTrail's own store |
+| History | Git + worktrees (+ thread history) | `versions` table over git commits, favourites/notes, preview checkout | Time-based session history from ActivityReel's own store |
 | Navigation | Auto first hunk, auto next file, tab per thread | Click file → diff; version search | Card → first change; ↑/↓ hunk; ←/→ file; back to timeline |
 | Empty / pending / error states | "No changes to review" + CTA; spinner "Generating Changes…" | Loading/error/no-changes copy in each view; generic error to user, raw to log | Explicit states: `loading`, `empty`, `tooLarge`, `binary`, `expired` |
 | Theming | `cx.theme().colors()` only; opaque-window shadow handling | Monaco `dyad-light/dark` + Tailwind tokens | VS Code theme vars only; high-contrast tested |
 | Keyboard | `alt-y`/`ctrl-alt-z`/`shift-alt-y`/`shift-alt-z`, `ctrl-shift-r`, `shift-alt-u` | Dialogs/buttons only | One panel shortcut + hunk nav; avoid chords that agents/terminal use |
 | Progress signal while streaming | Toolbar spinner on pending edit tool calls; live hunk updates during `write_file` stream | LCP streamed card content; "Generating" state in components | `live` chip while a document is actively changing |
 
-## 5. Concrete takeaways for CodeTrail (10)
+## 5. Concrete takeaways for ActivityReel (10)
 
 1. **Move from "diff two strings per burst" to a per-document baseline + hunks.**
    `src/diff.ts` currently re-diffs full text and returns a flat `DiffLine[]`. Adopt Zed's
    `BufferDiff` concept: per document keep `baseline` + `hunks[]` with `{bufferRange,
    baseByteRange, addedRows, removedRows, wordDiffs}` recalculated only where edits land (Zed:
    `buffer_diff.rs::HunkSink`). Keep the existing cell budget as the safety valve.
-   `[Observed in source]` Zed; `[Observed]` CodeTrail gap.
+   `[Observed in source]` Zed; `[Observed]` ActivityReel gap.
 2. **Give hunks stable identity across bursts.** Zed anchors hunks (`Range<Anchor>`); VS Code
    gives offsets, so store hunks relative to the *current* text plus a monotonically increasing
    `hunkId` when a hunk's base range survives. Needed for React keys, scroll preservation and
@@ -359,45 +359,45 @@ only safe checkpoint" datapoint, and it explains why "revert" is rarely partial.
    (default 3, cap ~32 like Zed's `multibuffer_context_lines`) — F2 becomes a mapping, not a
    rewrite.
 4. **Model the "review window" as an advancing read-only baseline, never accept/reject.**
-   Zed's keep/reject is "move `diff_base` forward"; for CodeTrail, "mark reviewed up to this
+   Zed's keep/reject is "move `diff_base` forward"; for ActivityReel, "mark reviewed up to this
    point" / "changes since last save" / "since session start" are the same primitive with zero
    writes. Vocabulary must stay observational ("checked up to"), per PROJECT non-goals.
 5. **Order file groups by path within a burst, and offer time vs path order.** Zed sorts
-   review files alphabetically "for consistency with Git diff view"; CodeTrail's timeline is
+   review files alphabetically "for consistency with Git diff view"; ActivityReel's timeline is
    chronological by default. Offer both — cheap, and matches what reviewers expect.
 6. **Add an explicit card state machine**: `open` (burst still coalescing) → `settled` →
    `truncated | binary | expired`. Zed shows a spinner from `has_pending_edit_tool_calls`;
    Dyad has loading/error/empty copy plus shared placeholder strings for
-   binary/too-large. CodeTrail should carry these as data in the diff payload, not only as UI.
+   binary/too-large. ActivityReel should carry these as data in the diff payload, not only as UI.
 7. **Navigation is the product**: first-change on open, next/prev hunk, next/prev file, back to
    timeline, and print the key hints on the controls (Zed's `KeyBinding::for_action_in`).
    Auto-advance to the next changed file when a file is exhausted (Zed
    `review_in_active_editor`).
 8. **Adopt Dyad's typed-contract + whitelist idea for the webview channel.** Zod-validated
    `HostMessage`/`WebviewMessage` unions with a derived list of allowed message types and a
-   runtime guard at the boundary (CodeTrail: `src/ui/messages.ts`), plus an envelope so unexpected
+   runtime guard at the boundary (ActivityReel: `src/ui/messages.ts`), plus an envelope so unexpected
    payloads are dropped, not thrown. Also batch persistence like Dyad's 150 ms flush.
 9. **Stream partial updates with an LCP patch + prefix hash** for high-churn documents:
    Dyad sends `{offset, content, prefixHash}` (longest-common-prefix) instead of re-sending
-   whole content, and detects retroactive rewrites. CodeTrail's coalescing store can do the
+   whole content, and detects retroactive rewrites. ActivityReel's coalescing store can do the
    same for the webview hydration of *in-progress* bursts and for 1k+ event feeds.
 10. **Do not build checkpoints, undo or revert; document where they live.** Zed's only
     in-app recovery is a one-level reject undo; Dyad's is git commits and a
     "[Interrupted] … checkpoint commit" before any revert. Both require write authority over
-    the file. CodeTrail should show a copyable timestamp/"reference point" and point users to
+    the file. ActivityReel should show a copyable timestamp/"reference point" and point users to
     their tool's own undo (consistent with `docs/research/ai-editors.md` non-goals).
 
-## 6. Out of scope for CodeTrail v1 (evidence-backed)
+## 6. Out of scope for ActivityReel v1 (evidence-backed)
 
 | Out-of-scope item | Why (source evidence) |
 | --- | --- |
-| Accept/reject hunks, keep-all/reject-all | Requires owning `diff_base` + buffer writes (`action_log.rs::keep_edits_in_range`, `agent_diff.rs`); CodeTrail must not write |
+| Accept/reject hunks, keep-all/reject-all | Requires owning `diff_base` + buffer writes (`action_log.rs::keep_edits_in_range`, `agent_diff.rs`); ActivityReel must not write |
 | Checkpoints, revert, undo | `LastRejectUndo` (one level, in-memory) and Dyad's git-commit revert/checkpoint both need write authority (`version_handlers.ts`) |
 | Inline hunk controls in the editor | Zed injects via `DiffHunkRenderer` + `BlockMap` inside its own editor; VS Code exposes no equivalent injection point for third parties `[Inferred]` |
-| Per-agent / per-turn attribution | Zed records authorship only at the tool boundary (`ChangeAuthor`); Dyad knows authorship only because it is the writer. CodeTrail sees edits, not authors |
-| Patch (`.diff`) ingestion and rendering | Only useful for tools that emit patches (`acp_thread/src/diff.rs`); CodeTrail sees buffer events instead |
+| Per-agent / per-turn attribution | Zed records authorship only at the tool boundary (`ChangeAuthor`); Dyad knows authorship only because it is the writer. ActivityReel sees edits, not authors |
+| Patch (`.diff`) ingestion and rendering | Only useful for tools that emit patches (`acp_thread/src/diff.rs`); ActivityReel sees buffer events instead |
 | Multi-buffer / review-tab editor replacement | Zed's review tab is its own editor implementation; out of VS Code's extension surface |
-| Repo/version diff views (Dyad `VersionDiffView`) | Ties review to git; CodeTrail's scope is the session timeline, not version control |
+| Repo/version diff views (Dyad `VersionDiffView`) | Ties review to git; ActivityReel's scope is the session timeline, not version control |
 
 ## 7. Limitations of this study
 
@@ -410,13 +410,13 @@ only safe checkpoint" datapoint, and it explains why "revert" is rarely partial.
   only referenced through imports; agentic tool-call modes (Claude Code/Codex subscriptions)
   were not traced beyond `docs/`.
 - **GPL crate note**: `crates/buffer_diff`, `crates/action_log`, `crates/acp_thread` ship
-  `LICENSE-GPL` files. Only *concepts* were extracted; no Zed code was copied, and CodeTrail
+  `LICENSE-GPL` files. Only *concepts* were extracted; no Zed code was copied, and ActivityReel
   (MIT) must not vendor them.
 - Line counts are at the pinned commits and will differ upstream.
 
 ## 8. Repo paths referenced (absolute, temp clones)
 
-- Zed: `C:\Users\SMH\AppData\Local\Temp\codetrail-research\zed\`
+- Zed: `C:\Users\SMH\AppData\Local\Temp\activityreel-research\zed\`
   - `crates\buffer_diff\src\buffer_diff.rs` (4,390 lines)
   - `crates\action_log\src\action_log.rs` (3,544)
   - `crates\agent_ui\src\agent_diff.rs` (2,372); `crates\agent_ui\src\ui\undo_reject_toast.rs`
@@ -429,7 +429,7 @@ only safe checkpoint" datapoint, and it explains why "revert" is rarely partial.
   - `crates\agent_settings\src\agent_settings.rs` (`single_file_review`)
   - `assets\keymaps\default-windows.json`, `default-linux.json` (L196-217)
   - `docs\src\ai\agent-panel.md` (Reviewing Changes), `docs\src\ai\parallel-agents.md`
-- Dyad: `C:\Users\SMH\AppData\Local\Temp\codetrail-research\dyad\`
+- Dyad: `C:\Users\SMH\AppData\Local\Temp\activityreel-research\dyad\`
   - `docs\architecture.md`; `src\db\schema.ts` (1,044)
   - `src\ipc\handlers\chat_stream_handlers.ts` (3,826); `src\ipc\utils\stream_text_utils.ts` (115)
   - `src\ipc\processors\response_processor.ts` (897); `src\ipc\handlers\version_handlers.ts` (2,132)

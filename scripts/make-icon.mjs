@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import sharp from "sharp";
 
 const root = resolve(import.meta.dirname, "..");
-const source = resolve(root, "media/codetrail.svg");
+const source = resolve(root, "media/activityreel.svg");
 const target = resolve(root, "images/icon.png");
 
 await mkdir(resolve(root, "images"), { recursive: true });

@@ -1,14 +1,14 @@
 import * as assert from "node:assert/strict";
 import * as vscode from "vscode";
 
-const EXTENSION_ID = "smh-dev-ai.codetrail";
+const EXTENSION_ID = "smh-dev-ai.activityreel";
 const PUBLIC_COMMANDS = [
-  "codetrail.open",
-  "codetrail.togglePause",
-  "codetrail.clear",
-  "codetrail.exportJson",
-  "codetrail.exportMarkdown",
-  "codetrail.about",
+  "activityreel.open",
+  "activityreel.togglePause",
+  "activityreel.clear",
+  "activityreel.exportJson",
+  "activityreel.exportMarkdown",
+  "activityreel.about",
 ];
 
 interface TestEvent {
@@ -44,11 +44,11 @@ async function waitFor<T>(
 }
 
 async function snapshot(): Promise<TestSnapshot> {
-  return vscode.commands.executeCommand<TestSnapshot>("codetrail.__test.snapshot");
+  return vscode.commands.executeCommand<TestSnapshot>("activityreel.__test.snapshot");
 }
 
 export async function run(): Promise<void> {
-  console.log("CodeTrail integration: start");
+  console.log("ActivityReel integration: start");
   const extension = vscode.extensions.getExtension(EXTENSION_ID);
   assert.ok(extension, `extension ${EXTENSION_ID} should be installed`);
   await extension.activate();
@@ -58,7 +58,7 @@ export async function run(): Promise<void> {
     assert.ok(commands.includes(id), `command ${id} should be registered`);
   }
   assert.ok(
-    commands.includes("codetrail.__test.snapshot"),
+    commands.includes("activityreel.__test.snapshot"),
     "test snapshot command should exist in test mode",
   );
 
@@ -72,7 +72,7 @@ export async function run(): Promise<void> {
   assert.equal(typeof before.paused, "boolean");
 
   await editor.edit((builder) => {
-    builder.insert(new vscode.Position(0, 0), "// codetrail integration probe\n");
+    builder.insert(new vscode.Position(0, 0), "// activityreel integration probe\n");
   });
 
   await waitFor(
@@ -102,11 +102,11 @@ export async function run(): Promise<void> {
     (state) => state.events.some((event) => event.kind === "file-delete" && event.relPath?.includes("created-by-test.ts")),
   );
 
-  await vscode.commands.executeCommand("codetrail.togglePause");
+  await vscode.commands.executeCommand("activityreel.togglePause");
   const paused = await snapshot();
   assert.equal(paused.paused, true, "pause command should pause tracking");
-  await vscode.commands.executeCommand("codetrail.togglePause");
+  await vscode.commands.executeCommand("activityreel.togglePause");
   const resumed = await snapshot();
   assert.equal(resumed.paused, false, "pause command should resume tracking");
-  console.log("CodeTrail integration: all checks passed");
+  console.log("ActivityReel integration: all checks passed");
 }

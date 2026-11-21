@@ -1,7 +1,7 @@
 /**
  * Preview shell (dev server only, never bundled into the extension). Reads the surface, locale
  * and theme from the query string, injects the bootstrap the extension host normally provides
- * (`window.__CODETRAIL__`), and mounts the shared app.
+ * (`window.__ACTIVITYREEL__`), and mounts the shared app.
  *
  *   /?surface=panel|sidebar|about&locale=en|fa&theme=dark|light|hc|hc-light&motion=reduced
  */
@@ -16,7 +16,7 @@ const surface = surfaceParam === "sidebar" || surfaceParam === "about" ? surface
 const locale = params.get("locale") === "fa" ? "fa" : "en";
 const theme = params.get("theme") ?? "dark";
 
-window.__CODETRAIL__ = { surface, locale };
+window.__ACTIVITYREEL__ = { surface, locale };
 
 document.documentElement.setAttribute("dir", locale === "fa" ? "rtl" : "ltr");
 document.documentElement.setAttribute("lang", locale);

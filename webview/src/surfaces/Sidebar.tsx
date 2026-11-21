@@ -4,7 +4,7 @@
  * collapsible filter bar, compact virtualized cards, new-activity pill and a compact footer.
  */
 import { useCallback, useEffect, useRef } from "react";
-import { useController, useT } from "../app/CodeTrailContext";
+import { useController, useT } from "../app/ActivityReelContext";
 import { hasActiveFilters } from "../app/selectors";
 import { livenessOf, LiveBadge } from "../components/LiveBadge";
 import { OrbitMark } from "../components/OrbitMark";

@@ -1,4 +1,4 @@
-# CodeTrail — UI/UX Design Specification (v1)
+# ActivityReel — UI/UX Design Specification (v1)
 
 Owner: UI/UX · Brand source of truth: `docs/PROJECT.md` §3.
 
@@ -27,11 +27,11 @@ Shared component tree; each surface renders a subset. Both surfaces are built fr
 bundle and read the same extension-side event store, but each webview has its own React state
 hydrated over the message channel (webviews never share memory directly).
 
-### 2.1 Activity Bar sidebar (`codetrail.view`, 300–500 px)
+### 2.1 Activity Bar sidebar (`activityreel.view`, 300–500 px)
 
 ```
 ┌──────────────────────────────────────────────┐
-│ ◉ CodeTrail            12  ⋯                  │  header (36px): OrbitMark 14px + title + count badge + overflow ⋯
+│ ◉ ActivityReel            12  ⋯                  │  header (36px): OrbitMark 14px + title + count badge + overflow ⋯
 ├──────────────────────────────────────────────┤
 │ ● Live · 3m 42s                              │  LiveBadge row (28px) — click toggles PausedState
 ├──────────────────────────────────────────────┤
@@ -56,12 +56,12 @@ hydrated over the message channel (webviews never share memory directly).
 Narrow (300–340 px): stat strip shows 2×2 grid; FilterBar collapses to a single "Filters (2)" button opening a popover;
 event cards hide the language chip and the hash.
 
-### 2.2 Editor panel (`codetrail.open`, ≥ 720 px)
+### 2.2 Editor panel (`activityreel.open`, ≥ 720 px)
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────┐
 │  ╭────────────────────────── hero (128px) ─────────────────────────╮                 │
-│  │      ◌ orbit + beads (96px, inline SVG, CSS rotation)            │   CodeTrail     │
+│  │      ◌ orbit + beads (96px, inline SVG, CSS rotation)            │   ActivityReel     │
 │  │  See every change in your workspace, live.   [{version}] [● Live] [⏸ Pause] [⋯]   │
 │  ╰──────────────────────────────────────────────────────────────────╯                 │
 │                                                                                      │
@@ -91,7 +91,7 @@ event cards hide the language chip and the hash.
 Breakpoints: ≥ 1100 px → 5 stat cards in a row; 720–1099 → 3 + 2 wrap; < 720 → horizontal scroll-snap stat row and
 hero drops the tagline line (kept as `aria-describedby` text).
 
-### 2.3 About page (`codetrail.about`)
+### 2.3 About page (`activityreel.about`)
 
 Embeds the panel hero at 200 px (larger orbit, 128 px), mission paragraphs, privacy statement ("No telemetry, no network,
 local only"), feature cards (reuse StatCard slot styling), keybindings table, author links, same Footer. No timeline.
@@ -316,7 +316,7 @@ orbit static, pulses off, counters jump to final value, slide-ins become instant
 
 - React 19 + TS, Vite/esbuild → one bundle per surface (shared chunk), CSS Modules + global `tokens.css`.
   No general UI library; a small virtualization primitive (e.g. `@tanstack/react-virtual`) is allowed.
-- Layout: `webview/src/{surfaces/{Sidebar,Panel,About},components/,styles/tokens.css,hooks/,store/,i18n/}`. Surfaces read `window.__CODETRAIL__ = { surface: 'panel' | 'sidebar' | 'about' }` injected at bootstrap.
+- Layout: `webview/src/{surfaces/{Sidebar,Panel,About},components/,styles/tokens.css,hooks/,store/,i18n/}`. Surfaces read `window.__ACTIVITYREEL__ = { surface: 'panel' | 'sidebar' | 'about' }` injected at bootstrap.
 - Component contract: every component gets `data-testid`, forwarded `ref`, and no implicit colors in TS — colors only via
   classes/tokens. Diff text is always rendered as text nodes (no `innerHTML`); copy posts a `copy` message to the
   extension host, which writes through `vscode.env.clipboard`.

@@ -2,7 +2,7 @@
  * Signature footer: heart SVG (aria-hidden) + explicit-link labels, license and privacy note.
  * Links use logical inline spacing so the row mirrors in RTL.
  */
-import { useT } from "../app/CodeTrailContext";
+import { useT } from "../app/ActivityReelContext";
 import { HeartIcon, LockIcon, SparkIcon } from "./Icons";
 import styles from "./Footer.module.css";
 

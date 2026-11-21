@@ -166,7 +166,7 @@ describe("exportMarkdown", () => {
       relPath: "src/b.ts",
     };
     const md = exportMarkdown(bundle({ events: [editEvent(), save] }));
-    expect(md.startsWith("# CodeTrail activity export")).toBe(true);
+    expect(md.startsWith("# ActivityReel activity export")).toBe(true);
     expect(md).toContain("Stats: 3 events · 2 files · +5/−2");
     expect(md).toContain("Edit · سلام.ts");
     expect(md).toContain("سلام.ts");
