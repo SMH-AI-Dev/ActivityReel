@@ -1,0 +1,298 @@
+.card {
+  position: relative;
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-r-md);
+  background: var(--lp-bg-elev);
+  min-width: 0;
+  overflow: hidden;
+  animation: lp-enter var(--lp-dur-enter) var(--lp-ease-out) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.slideIn {
+  animation: lp-slide-in var(--lp-dur-slide) var(--lp-ease-out) both;
+}
+
+.compact {
+  border-radius: var(--lp-r-sm);
+}
+
+.card:hover {
+  background: color-mix(in srgb, var(--lp-hover-bg) 60%, var(--lp-bg-elev));
+}
+
+.expanded {
+  background: var(--lp-bg-elev);
+}
+
+.headerWrap {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto auto 24px;
+  align-items: center;
+  gap: var(--lp-s2);
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 64px;
+  padding: 0 var(--lp-s3);
+  padding-inline-start: var(--lp-s3);
+  border: 0;
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+  color: var(--lp-fg);
+}
+
+.header:focus-visible {
+  outline: 2px solid var(--lp-focus-ring);
+  outline-offset: -2px;
+}
+
+.compact .header {
+  grid-template-columns: 16px minmax(0, 1fr) auto 20px;
+  min-height: 56px;
+  padding-inline: var(--lp-s2);
+  gap: var(--lp-s1);
+}
+
+.rail {
+  position: absolute;
+  inset-block: 10px;
+  inset-inline-start: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--rail, var(--lp-border));
+}
+
+.icon {
+  grid-column: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rail, var(--lp-fg-muted));
+}
+
+/* The rail is out of flow, so every in-flow cell is placed explicitly. */
+.body {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-s2);
+  min-width: 0;
+}
+
+.path {
+  display: block;
+  min-width: 0;
+  color: var(--lp-fg);
+  font-size: var(--lp-mono-size);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
+}
+
+.lang {
+  flex: none;
+  color: var(--lp-fg-muted);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-s2);
+  min-width: 0;
+  color: var(--lp-fg-muted);
+  font-size: 11px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.kindWord {
+  flex: none;
+}
+
+.sub {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--lp-fg-muted);
+  font-size: 11px;
+}
+
+.reason {
+  flex: none;
+  padding: 0 var(--lp-s1);
+  border-radius: var(--lp-r-sm);
+  border: 1px solid var(--lp-border);
+}
+
+.status {
+  flex: none;
+}
+
+.status_failed {
+  color: var(--lp-error);
+}
+
+.status_running {
+  color: var(--lp-warn);
+}
+
+.status_done {
+  color: var(--lp-fg-muted);
+}
+
+.duration {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.counts {
+  grid-column: 3;
+  flex: none;
+}
+
+.timeWrap {
+  grid-column: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  flex: none;
+  min-width: 58px;
+  line-height: 1.25;
+}
+
+.time {
+  color: var(--lp-fg-muted);
+  font-family: var(--lp-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.relative {
+  color: var(--lp-fg-muted);
+  font-size: 11px;
+}
+
+.chevron {
+  grid-column: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lp-fg-muted);
+  transition: transform var(--lp-dur-expand) var(--lp-ease-out);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.chevronPlaceholder {
+  grid-column: 5;
+  width: 14px;
+}
+
+.compact .timeWrap {
+  grid-column: 3;
+}
+
+.compact .chevron,
+.compact .chevronPlaceholder {
+  grid-column: 4;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-inline-end: var(--lp-s2);
+  opacity: 0;
+  transition: opacity var(--lp-dur-hover) linear;
+}
+
+.card:hover .actions,
+.card:focus-within .actions {
+  opacity: 1;
+}
+
+.action {
+  width: 22px;
+  height: 22px;
+}
+
+@media (hover: none) {
+  .actions {
+    opacity: 1;
+  }
+}
+
+/* Expand: grid-template-rows 0fr -> 1fr keeps height animation layout-safe. */
+.diffWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--lp-dur-expand) var(--lp-ease-out);
+}
+
+.expanded .diffWrap {
+  grid-template-rows: 1fr;
+}
+
+.diffInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.expanded .diffInner {
+  overflow: visible;
+}
+
+.diffInner > * {
+  margin: 0;
+}
+
+.diffWrap > .diffInner > :first-child {
+  margin-block-start: 0;
+}
+
+.expanded .diffWrap > .diffInner {
+  padding: 0 var(--lp-s3) var(--lp-s3);
+  border-block-start: 1px solid var(--lp-border);
+  padding-block-start: var(--lp-s2);
+}
+
+.compact.expanded .diffWrap > .diffInner {
+  padding-inline: var(--lp-s2);
+}
+
+body.vscode-high-contrast .card,
+body.vscode-high-contrast-light .card {
+  border-color: var(--lp-border-strong);
+}
+
+body.vscode-reduce-motion .chevron,
+body.reduced-motion .chevron {
+  transition-duration: 1ms;
+}

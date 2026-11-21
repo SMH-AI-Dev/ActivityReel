@@ -1,0 +1,86 @@
+/* Preview shell chrome — the app itself never sees this file. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.preview-shell {
+  display: flex;
+  height: 100vh;
+  box-sizing: border-box;
+  min-height: 0;
+  align-items: stretch;
+  justify-content: center;
+  background: #111;
+}
+
+.preview-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  border-inline: 1px solid #333;
+}
+
+.preview-root {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Light approximation of the VS Code Light Modern theme for `?theme=light`. */
+:root.vscode-light {
+  --vscode-editor-background: #ffffff;
+  --vscode-sideBar-background: #f8f8f8;
+  --vscode-foreground: #3b3b3b;
+  --vscode-descriptionForeground: #717171;
+  --vscode-disabledForeground: #a0a0a0;
+  --vscode-panel-border: #e5e5e5;
+  --vscode-widget-border: #e5e5e5;
+  --vscode-focusBorder: #005fb8;
+  --vscode-button-background: #005fb8;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-hoverBackground: #0258a8;
+  --vscode-button-secondaryBackground: #e5e5e5;
+  --vscode-button-secondaryForeground: #3b3b3b;
+  --vscode-button-secondaryHoverBackground: #cccccc;
+  --vscode-input-background: #ffffff;
+  --vscode-input-foreground: #3b3b3b;
+  --vscode-input-placeholderForeground: #767676;
+  --vscode-badge-background: #cccccc;
+  --vscode-badge-foreground: #3b3b3b;
+  --vscode-list-hoverBackground: #f2f2f2;
+  --vscode-list-activeSelectionBackground: #e8e8e8;
+  --vscode-dropdown-background: #ffffff;
+  --vscode-dropdown-foreground: #3b3b3b;
+  --vscode-dropdown-border: #cecece;
+  --vscode-editorWidget-background: #f8f8f8;
+  --vscode-widget-shadow: rgba(0, 0, 0, 0.16);
+  --vscode-gitDecoration-addedResourceForeground: #388a34;
+  --vscode-gitDecoration-deletedResourceForeground: #c74e39;
+  --vscode-gitDecoration-modifiedResourceForeground: #895503;
+  --vscode-gitDecoration-renamedResourceForeground: #007100;
+  --vscode-charts-blue: #1a85ff;
+  --vscode-charts-green: #388a34;
+  --vscode-charts-orange: #d18616;
+  --vscode-charts-purple: #652d90;
+  --vscode-charts-red: #e51400;
+  --vscode-charts-yellow: #bf8803;
+  --vscode-editorWarning-foreground: #bf8803;
+  --vscode-errorForeground: #e51400;
+  --vscode-textLink-foreground: #005fb8;
+  --vscode-editorLineNumber-foreground: #6e7681;
+  --vscode-diffEditor-insertedLineBackground: rgba(155, 185, 85, 0.2);
+  --vscode-diffEditor-removedLineBackground: rgba(255, 0, 0, 0.2);
+}
+
+.vscode-light .preview-shell {
+  background: #e5e5e5;
+}
+
+.vscode-light .preview-frame {
+  border-inline-color: #cccccc;
+}

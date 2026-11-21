@@ -1,0 +1,99 @@
+.mark {
+  display: inline-block;
+  flex: none;
+  aspect-ratio: 1;
+  color: var(--lp-fg);
+}
+
+.sm {
+  width: 14px;
+}
+
+.md {
+  width: 40px;
+}
+
+.lg {
+  width: 96px;
+}
+
+.xl {
+  width: 128px;
+}
+
+.orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lp-orbit var(--lp-orbit-duration) linear infinite;
+}
+
+.paused .orbit {
+  animation-duration: 0s;
+  opacity: 0.65;
+}
+
+.stale .orbit {
+  animation-duration: calc(var(--lp-orbit-duration) * 6.6);
+  opacity: 0.7;
+}
+
+.ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--lp-accent) 45%, transparent);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.bead {
+  animation-name: lp-bead-pulse;
+  animation-duration: 1.6s;
+  animation-delay: var(--bead-delay, 0s);
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.pulse .bead {
+  animation-play-state: running;
+}
+
+.bead[data-bead="blue"] {
+  fill: var(--lp-chart-blue);
+}
+
+.bead[data-bead="green"] {
+  fill: var(--lp-chart-green);
+}
+
+.bead[data-bead="purple"] {
+  fill: var(--lp-chart-purple);
+}
+
+.centre {
+  fill: var(--lp-fg);
+}
+
+.paused .bead,
+.stale .bead {
+  animation: none;
+  opacity: 0.7;
+}
+
+.sm .ring {
+  stroke-width: 6;
+}
+
+.sm .centre {
+  display: none;
+}
+
+body.vscode-high-contrast .bead,
+body.vscode-high-contrast-light .bead {
+  fill: var(--lp-fg);
+}
+
+body.vscode-high-contrast .orbit,
+body.vscode-high-contrast-light .orbit {
+  animation: none;
+  opacity: 0.5;
+}

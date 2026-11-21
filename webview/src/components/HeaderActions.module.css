@@ -1,0 +1,55 @@
+.root {
+  position: relative;
+  display: inline-flex;
+}
+
+.menu {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: calc(100% + var(--lp-s1));
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+  padding: var(--lp-s1);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-r-md);
+  background: var(--lp-widget-bg);
+  box-shadow: var(--lp-overlay-shadow);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-s2);
+  width: 100%;
+  padding: 5px var(--lp-s2);
+  border: 0;
+  border-radius: var(--lp-r-sm);
+  background: transparent;
+  color: var(--lp-fg);
+  font-size: 12px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.item:hover,
+.item:focus-visible {
+  background: var(--lp-hover-bg);
+}
+
+.itemIcon {
+  display: inline-flex;
+  color: var(--lp-fg-muted);
+}
+
+.separator {
+  height: 1px;
+  margin: var(--lp-s1) 0;
+  background: var(--lp-border);
+}
+
+body.vscode-high-contrast .menu,
+body.vscode-high-contrast-light .menu {
+  border-color: var(--lp-border-strong);
+}

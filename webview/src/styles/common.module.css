@@ -1,0 +1,157 @@
+/* Shared primitives: buttons, chips, mono meta. */
+
+.button,
+.buttonSecondary,
+.iconButton,
+.ghostButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lp-s1);
+  border: 1px solid transparent;
+  border-radius: var(--lp-r-sm);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  transition:
+    background-color var(--lp-dur-hover) linear,
+    color var(--lp-dur-hover) linear;
+  white-space: nowrap;
+}
+
+.button {
+  padding: 5px 10px;
+  background: var(--lp-btn-bg);
+  color: var(--lp-btn-fg);
+}
+
+.button:hover {
+  background: var(--lp-btn-hover);
+}
+
+.buttonSecondary {
+  padding: 5px 10px;
+  background: var(--lp-btn2-bg);
+  color: var(--lp-btn2-fg);
+}
+
+.buttonSecondary:hover {
+  background: var(--lp-btn2-hover);
+}
+
+.ghostButton {
+  padding: 5px 10px;
+  background: transparent;
+  border-color: var(--lp-border);
+  color: var(--lp-fg);
+}
+
+.ghostButton:hover {
+  background: var(--lp-hover-bg);
+}
+
+.iconButton {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  color: var(--lp-fg-muted);
+}
+
+.iconButton:hover {
+  background: var(--lp-hover-bg);
+  color: var(--lp-fg);
+}
+
+.button:disabled,
+.buttonSecondary:disabled,
+.iconButton:disabled,
+.ghostButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+body.vscode-high-contrast .button,
+body.vscode-high-contrast .buttonSecondary,
+body.vscode-high-contrast .ghostButton,
+body.vscode-high-contrast .iconButton,
+body.vscode-high-contrast-light .button,
+body.vscode-high-contrast-light .buttonSecondary,
+body.vscode-high-contrast-light .ghostButton,
+body.vscode-high-contrast-light .iconButton {
+  border-color: var(--lp-border-strong);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lp-s1);
+  padding: 1px var(--lp-s2);
+  border-radius: 999px;
+  background: var(--lp-badge-bg);
+  color: var(--lp-badge-fg);
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: var(--lp-mono);
+  font-size: var(--lp-mono-size);
+  font-weight: 500;
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.add {
+  color: var(--lp-add);
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--lp-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.del {
+  color: var(--lp-del);
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--lp-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--lp-fg-muted);
+}
+
+.counts {
+  display: inline-flex;
+  gap: var(--lp-s1);
+  align-items: baseline;
+}
+
+body.vscode-high-contrast .add::before,
+body.vscode-high-contrast-light .add::before {
+  content: "+";
+}
+
+body.vscode-high-contrast .del::before,
+body.vscode-high-contrast-light .del::before {
+  content: "−";
+}
+
+.railDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.skeleton {
+  border-radius: var(--lp-r-md);
+  border: 1px solid var(--lp-border);
+  background: color-mix(in srgb, var(--lp-fg) 6%, transparent);
+}

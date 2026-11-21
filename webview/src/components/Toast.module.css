@@ -1,0 +1,56 @@
+.wrap {
+  position: fixed;
+  inset-inline: var(--lp-s4);
+  inset-block-end: var(--lp-s4);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--lp-s2);
+  margin-inline: auto;
+  width: max-content;
+  max-width: min(480px, calc(100% - 2 * var(--lp-s4)));
+  padding: var(--lp-s2) var(--lp-s2) var(--lp-s2) var(--lp-s3);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-r-md);
+  background: var(--lp-widget-bg);
+  color: var(--lp-fg);
+  box-shadow: var(--lp-overlay-shadow);
+  font-size: 12px;
+  animation: lp-enter var(--lp-dur-enter) var(--lp-ease-out) both;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--lp-fg-muted);
+}
+
+.info {
+  background: var(--lp-chart-blue);
+}
+
+.warn {
+  background: var(--lp-warn);
+}
+
+.error {
+  background: var(--lp-error);
+}
+
+.message {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.close {
+  width: 20px;
+  height: 20px;
+}
+
+body.vscode-high-contrast .wrap,
+body.vscode-high-contrast-light .wrap {
+  border-color: var(--lp-border-strong);
+}

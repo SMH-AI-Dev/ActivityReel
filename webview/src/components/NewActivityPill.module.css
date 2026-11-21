@@ -1,0 +1,52 @@
+.pill {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 72px;
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lp-s1);
+  margin-inline: auto;
+  width: max-content;
+  max-width: calc(100% - 2 * var(--lp-s4));
+  padding: 4px var(--lp-s3);
+  border: 1px solid var(--lp-border);
+  border-radius: 999px;
+  background: var(--lp-btn2-bg);
+  color: var(--lp-btn2-fg);
+  font-size: 12px;
+  box-shadow: 0 2px 8px var(--vscode-widget-shadow, color-mix(in srgb, #000000 24%, transparent));
+  cursor: pointer;
+  animation: lp-enter var(--lp-dur-slide) var(--lp-ease-out) both;
+}
+
+.pill:hover {
+  background: var(--lp-btn2-hover);
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding-inline: 4px;
+  border-radius: 999px;
+  background: var(--lp-badge-bg);
+  color: var(--lp-badge-fg);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.arrow {
+  flex: none;
+}
+
+[dir="rtl"] .arrow {
+  transform: none;
+}
+
+body.vscode-high-contrast .pill,
+body.vscode-high-contrast-light .pill {
+  border-color: var(--lp-border-strong);
+}

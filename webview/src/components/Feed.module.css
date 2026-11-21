@@ -1,0 +1,49 @@
+.host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 0;
+  position: relative;
+}
+
+.scroll {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  contain: strict;
+  padding-inline-end: var(--lp-s1);
+}
+
+.pausedLed {
+  color: var(--lp-fg-disabled);
+  filter: saturate(0.7);
+}
+
+.feed {
+  display: block;
+  min-height: 0;
+}
+
+.row {
+  padding-block-end: var(--lp-s2);
+  padding-inline: 2px;
+}
+
+.tail {
+  display: flex;
+  justify-content: center;
+  padding: var(--lp-s2) 0 var(--lp-s4);
+  color: var(--lp-fg-muted);
+  font-size: 11px;
+}
+
+.emptyHost {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  overflow: auto;
+}

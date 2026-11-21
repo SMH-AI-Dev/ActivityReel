@@ -1,0 +1,148 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--lp-s5);
+  min-height: var(--lp-hero-height);
+  padding: var(--lp-s4) var(--lp-s5);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-r-lg);
+  background:
+    radial-gradient(
+      120% 160% at 0% 0%,
+      color-mix(in srgb, var(--lp-accent) 8%, var(--lp-bg-elev)) 0%,
+      var(--lp-bg-elev) 60%
+    );
+  overflow: hidden;
+}
+
+[dir="rtl"] .hero {
+  background:
+    radial-gradient(
+      120% 160% at 100% 0%,
+      color-mix(in srgb, var(--lp-accent) 8%, var(--lp-bg-elev)) 0%,
+      var(--lp-bg-elev) 60%
+    );
+}
+
+.orbitWrap {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.md .orbitWrap {
+  width: 40px;
+}
+
+.lg .orbitWrap {
+  width: 96px;
+}
+
+.xl .orbitWrap {
+  width: 128px;
+}
+
+.orbit {
+  transition: opacity var(--lp-dur-enter) linear;
+}
+
+.degraded .orbit {
+  opacity: 0.4;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lp-s1);
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--lp-s2);
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--lp-font);
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--lp-fg);
+}
+
+.version {
+  padding: 0 var(--lp-s1);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-r-sm);
+  color: var(--lp-fg-muted);
+  font-family: var(--lp-mono);
+  font-size: 10px;
+  line-height: 1.7;
+  text-transform: none;
+}
+
+.tagline {
+  color: var(--lp-fg-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 60ch;
+}
+
+.degradedText {
+  color: var(--lp-warn);
+  font-size: 11px;
+}
+
+.slot {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-s2);
+  flex-wrap: wrap;
+  margin-block-start: var(--lp-s1);
+}
+
+.compact {
+  min-height: 40px;
+  gap: var(--lp-s2);
+  padding: var(--lp-s1) var(--lp-s2);
+  border-radius: var(--lp-r-sm);
+}
+
+.compact .title {
+  font-size: 15px;
+}
+
+.compact .tagline {
+  font-size: 11px;
+}
+
+.compact .slot {
+  margin-block-start: 0;
+}
+
+body.vscode-high-contrast .hero,
+body.vscode-high-contrast-light .hero {
+  background: var(--lp-bg-elev);
+  border-color: var(--lp-border-strong);
+}
+
+@media (max-width: 719px) {
+  .hero {
+    gap: var(--lp-s3);
+    padding: var(--lp-s3) var(--lp-s4);
+  }
+
+  .lg .orbitWrap {
+    width: 64px;
+  }
+
+  .tagline {
+    font-size: 12px;
+  }
+}

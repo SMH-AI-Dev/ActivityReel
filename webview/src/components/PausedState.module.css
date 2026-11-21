@@ -1,0 +1,48 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--lp-s2);
+  min-height: 40px;
+  padding: var(--lp-s1) var(--lp-s3);
+  border: 1px solid color-mix(in srgb, var(--lp-warn) 40%, var(--lp-border));
+  border-radius: var(--lp-r-md);
+  background: color-mix(in srgb, var(--lp-warn) 10%, transparent);
+  color: var(--lp-fg);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--lp-warn);
+}
+
+.text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--lp-s1) var(--lp-s2);
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 12px;
+}
+
+.title {
+  color: var(--lp-warn);
+  font-weight: 600;
+}
+
+.body {
+  color: var(--lp-fg-muted);
+}
+
+.resume {
+  flex: none;
+}
+
+.compact {
+  min-height: 28px;
+  border-radius: var(--lp-r-sm);
+  font-size: 11px;
+}

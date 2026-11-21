@@ -1,0 +1,6 @@
+{
+  "codetrail.debounceMs": 100,
+  "codetrail.persistHistory": false,
+  "codetrail.enabled": true,
+  "codetrail.trackTerminal": false
+}

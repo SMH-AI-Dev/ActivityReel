@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "dist": true,
+    "media/webview": true,
+    "coverage": true
+  },
+  "search.exclude": {
+    "dist": true,
+    "media/webview": true,
+    "coverage": true,
+    "package-lock.json": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

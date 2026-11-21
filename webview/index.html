@@ -1,0 +1,76 @@
+<!doctype html>
+<!--
+  Standalone preview entry (dev server + preview builds). The real VS Code webview is rendered by
+  the extension host from media/webview/main.js with its own nonce-based CSP; this file only
+  exists so the UI can be inspected in a browser against the preview mock host.
+  No inline scripts and no remote URLs: the preview configuration is read from the query string
+  by main.tsx after load.
+-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>CodeTrail — preview</title>
+    <style>
+      /* Bare-theme approximation of the VS Code default dark theme (preview only). */
+      :root {
+        --vscode-editor-background: #1f1f1f;
+        --vscode-sideBar-background: #181818;
+        --vscode-foreground: #cccccc;
+        --vscode-descriptionForeground: #9d9d9d;
+        --vscode-panel-border: #2b2b2b;
+        --vscode-focusBorder: #0078d4;
+        --vscode-button-background: #0078d4;
+        --vscode-button-foreground: #ffffff;
+        --vscode-button-hoverBackground: #026ec1;
+        --vscode-button-secondaryBackground: #313131;
+        --vscode-button-secondaryForeground: #cccccc;
+        --vscode-button-secondaryHoverBackground: #3c3c3c;
+        --vscode-input-background: #313131;
+        --vscode-input-foreground: #cccccc;
+        --vscode-input-placeholderForeground: #989898;
+        --vscode-badge-background: #616161;
+        --vscode-badge-foreground: #f8f8f8;
+        --vscode-list-hoverBackground: #2a2d2e;
+        --vscode-list-activeSelectionBackground: #04395e;
+        --vscode-gitDecoration-addedResourceForeground: #81b88b;
+        --vscode-gitDecoration-deletedResourceForeground: #c74e39;
+        --vscode-gitDecoration-modifiedResourceForeground: #e2c08d;
+        --vscode-gitDecoration-renamedResourceForeground: #73c991;
+        --vscode-charts-blue: #3794ff;
+        --vscode-charts-green: #89d185;
+        --vscode-charts-orange: #d18616;
+        --vscode-charts-purple: #b180d7;
+        --vscode-charts-red: #f14c4c;
+        --vscode-charts-yellow: #cca700;
+        --vscode-editorWarning-foreground: #cca700;
+        --vscode-errorForeground: #f85149;
+        --vscode-textLink-foreground: #3794ff;
+        --vscode-editorLineNumber-foreground: #6e7681;
+        --vscode-widget-shadow: rgba(0, 0, 0, 0.36);
+        --vscode-editorWidget-background: #202020;
+        --vscode-dropdown-background: #313131;
+        --vscode-dropdown-foreground: #cccccc;
+        --vscode-scrollbarSlider-background: rgba(121, 121, 121, 0.4);
+        --vscode-font-family: "Segoe UI", "Vazirmatn", system-ui, sans-serif;
+        --vscode-font-size: 13px;
+        --vscode-editor-font-family: "Cascadia Code", Consolas, monospace;
+        --vscode-editor-font-size: 12px;
+      }
+
+      body {
+        font-size: 13px;
+        margin: 0;
+        background: var(--vscode-editor-background);
+      }
+    </style>
+  </head>
+  <body class="vscode-dark">
+    <script type="module" src="./preview/main.tsx"></script>
+  </body>
+</html>

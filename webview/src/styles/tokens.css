@@ -1,0 +1,131 @@
+/*
+ * Design tokens. Every visual value resolves to a --vscode-* variable, a color-mix of one, or a
+ * documented fallback literal that is only used when the variable is absent (bare themes).
+ * Hex literals appear only inside `var(--vscode-x, <fallback>)` fallbacks.
+ */
+
+:root {
+  /* Surfaces */
+  --lp-bg: var(--vscode-editor-background, #1e1e1e);
+  --lp-bg-elev: var(--vscode-sideBar-background, var(--vscode-editor-background, #252526));
+  --lp-fg: var(--vscode-foreground, #cccccc);
+  --lp-fg-muted: var(--vscode-descriptionForeground, color-mix(in srgb, var(--lp-fg) 75%, var(--lp-bg)));
+  --lp-fg-disabled: var(--vscode-disabledForeground, color-mix(in srgb, var(--lp-fg) 55%, var(--lp-bg)));
+  --lp-border: var(--vscode-panel-border, var(--vscode-widget-border, color-mix(in srgb, var(--lp-fg) 14%, transparent)));
+  --lp-border-strong: var(--vscode-contrastBorder, transparent);
+
+  /* Accent + interaction */
+  --lp-accent: var(--vscode-focusBorder, var(--vscode-button-background, #0078d4));
+  --lp-accent-soft: color-mix(in srgb, var(--lp-accent) 14%, transparent);
+  --lp-focus-ring: var(--vscode-contrastActiveBorder, var(--lp-accent));
+  --lp-btn-bg: var(--vscode-button-background, #0078d4);
+  --lp-btn-fg: var(--vscode-button-foreground, #ffffff);
+  --lp-btn-hover: var(--vscode-button-hoverBackground, #026ec1);
+  --lp-btn2-bg: var(--vscode-button-secondaryBackground, #3a3d41);
+  --lp-btn2-fg: var(--vscode-button-secondaryForeground, #ffffff);
+  --lp-btn2-hover: var(--vscode-button-secondaryHoverBackground, #45494e);
+  --lp-input-bg: var(--vscode-input-background, #3c3c3c);
+  --lp-input-fg: var(--vscode-input-foreground, #cccccc);
+  --lp-input-border: var(--vscode-input-border, transparent);
+  --lp-placeholder: var(--vscode-input-placeholderForeground, #9d9d9d);
+  --lp-badge-bg: var(--vscode-badge-background, #4d4d4d);
+  --lp-badge-fg: var(--vscode-badge-foreground, #ffffff);
+  --lp-hover-bg: var(--vscode-list-hoverBackground, color-mix(in srgb, var(--lp-fg) 8%, transparent));
+  --lp-sel-bg: var(--vscode-list-activeSelectionBackground, var(--vscode-list-inactiveSelectionBackground, color-mix(in srgb, var(--lp-accent) 22%, transparent)));
+  --lp-dropdown-bg: var(--vscode-dropdown-background, #3c3c3c);
+  --lp-dropdown-fg: var(--vscode-dropdown-foreground, #cccccc);
+  --lp-dropdown-border: var(--vscode-dropdown-border, transparent);
+  --lp-highlight-fg: var(--vscode-list-highlightForeground, var(--vscode-textLink-foreground, #3794ff));
+  --lp-overlay-shadow: 0 4px 16px var(--vscode-widget-shadow, color-mix(in srgb, #000000 24%, transparent));
+  --lp-widget-bg: var(--vscode-editorWidget-background, var(--vscode-sideBar-background, #252526));
+
+  /* Diff semantics */
+  --lp-add: var(--vscode-gitDecoration-addedResourceForeground, #81b88b);
+  --lp-del: var(--vscode-gitDecoration-deletedResourceForeground, #c74e39);
+  --lp-mod: var(--vscode-gitDecoration-modifiedResourceForeground, #e2c08d);
+  --lp-ren: var(--vscode-gitDecoration-renamedResourceForeground, #73c991);
+  --lp-chart-blue: var(--vscode-charts-blue, #3794ff);
+  --lp-chart-green: var(--vscode-charts-green, #89d185);
+  --lp-chart-orange: var(--vscode-charts-orange, #d18616);
+  --lp-chart-purple: var(--vscode-charts-purple, #b180d7);
+  --lp-chart-red: var(--vscode-charts-red, #f14c4c);
+  --lp-chart-yellow: var(--vscode-charts-yellow, #cca700);
+  --lp-warn: var(--vscode-editorWarning-foreground, #cca700);
+  --lp-error: var(--vscode-errorForeground, var(--vscode-charts-red, #f14c4c));
+  --lp-link: var(--vscode-textLink-foreground, #3794ff);
+  --lp-link-active: var(--vscode-textLink-activeForeground, var(--lp-link));
+
+  --lp-diff-add-bg: var(--vscode-diffEditor-insertedLineBackground, color-mix(in srgb, var(--lp-add) 14%, transparent));
+  --lp-diff-del-bg: var(--vscode-diffEditor-removedLineBackground, color-mix(in srgb, var(--lp-del) 14%, transparent));
+  --lp-diff-add-text: var(--vscode-diffEditor-insertedTextBackground, color-mix(in srgb, var(--lp-add) 28%, transparent));
+  --lp-diff-del-text: var(--vscode-diffEditor-removedTextBackground, color-mix(in srgb, var(--lp-del) 28%, transparent));
+  --lp-diff-hunk: color-mix(in srgb, var(--lp-accent) 8%, transparent);
+  --lp-line-number: var(--vscode-editorLineNumber-foreground, color-mix(in srgb, var(--lp-fg) 60%, var(--lp-bg)));
+
+  /* Type */
+  --lp-font: var(--vscode-font-family, system-ui, sans-serif);
+  --lp-font-size: var(--vscode-font-size, 13px);
+  --lp-mono: var(--vscode-editor-font-family, ui-monospace, monospace);
+  --lp-mono-size: var(--vscode-editor-font-size, 12px);
+  --lp-mono-weight: var(--vscode-editor-font-weight, 400);
+  --lp-weight-regular: var(--vscode-font-weight, 400);
+
+  /* Space + radii */
+  --lp-s1: 4px;
+  --lp-s2: 8px;
+  --lp-s3: 12px;
+  --lp-s4: 16px;
+  --lp-s5: 24px;
+  --lp-s6: 32px;
+  --lp-r-sm: 6px;
+  --lp-r-md: 10px;
+  --lp-r-lg: 14px;
+
+  /* Motion */
+  --lp-dur-enter: 220ms;
+  --lp-dur-slide: 260ms;
+  --lp-dur-expand: 200ms;
+  --lp-dur-hover: 120ms;
+  --lp-ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --lp-orbit-duration: 9s;
+
+  /* Layout */
+  --lp-content-max: 1200px;
+  --lp-gutter: 24px;
+  --lp-row-height: 64px;
+  --lp-hero-height: 128px;
+}
+
+/* High contrast: tints collapse, semantic colour is carried by borders + glyphs. */
+body.vscode-high-contrast,
+body.vscode-high-contrast-light {
+  --lp-accent-soft: transparent;
+  --lp-diff-add-bg: transparent;
+  --lp-diff-del-bg: transparent;
+  --lp-diff-add-text: transparent;
+  --lp-diff-del-text: transparent;
+  --lp-diff-hunk: transparent;
+  --lp-hover-bg: color-mix(in srgb, var(--lp-fg) 18%, transparent);
+  --lp-orbit-duration: 0s;
+  --lp-line-number: var(--lp-fg);
+}
+
+/* Reduced motion kill switch (media query + VS Code setting class). */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --lp-dur-enter: 1ms;
+    --lp-dur-slide: 1ms;
+    --lp-dur-expand: 1ms;
+    --lp-dur-hover: 1ms;
+    --lp-orbit-duration: 0s;
+  }
+}
+
+body.vscode-reduce-motion,
+body.reduced-motion {
+  --lp-dur-enter: 1ms;
+  --lp-dur-slide: 1ms;
+  --lp-dur-expand: 1ms;
+  --lp-dur-hover: 1ms;
+  --lp-orbit-duration: 0s;
+}

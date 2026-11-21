@@ -1,0 +1,121 @@
+.enter {
+  animation: lp-enter var(--lp-dur-enter) var(--lp-ease-out) both;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lp-s1);
+  min-width: 0;
+  padding: var(--lp-s3) var(--lp-s4);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-r-md);
+  background: var(--lp-bg-elev);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 2px;
+  background: transparent;
+  transition: background-color var(--lp-dur-hover) linear;
+}
+
+.updated::before {
+  background: var(--lp-accent);
+}
+
+.label {
+  color: var(--lp-fg-muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--lp-s2);
+  min-width: 0;
+}
+
+.value {
+  font-family: var(--lp-mono);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--lp-fg);
+  direction: ltr;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+}
+
+.delta {
+  padding: 0 var(--lp-s1);
+  border-radius: var(--lp-r-sm);
+  background: color-mix(in srgb, var(--lp-add) 18%, transparent);
+  color: var(--lp-add);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+  animation: lp-enter 160ms var(--lp-ease-out) both;
+}
+
+.add .value {
+  color: var(--lp-add);
+}
+
+.del .value {
+  color: var(--lp-del);
+}
+
+.accent .value {
+  color: var(--lp-accent);
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--lp-fg-muted);
+}
+
+.sm {
+  padding: var(--lp-s2) var(--lp-s3);
+  gap: 0;
+}
+
+.sm .value {
+  font-size: 17px;
+}
+
+.sm .label {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+body.vscode-high-contrast .card,
+body.vscode-high-contrast-light .card {
+  border-color: var(--lp-border-strong);
+}
+
+body.vscode-high-contrast .delta,
+body.vscode-high-contrast-light .delta {
+  background: transparent;
+  text-decoration: underline;
+}
